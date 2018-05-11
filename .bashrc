@@ -36,6 +36,10 @@ alias restartfamac="dropfamac && frontend && migrate"
 alias rollback="artisan migrate:rollback && migrate"
 alias clear="clear && clear"
 
+function greset() {
+	git checkout -- $1
+}
+
 function artisan() {
 	php artisan "$@"
 }
