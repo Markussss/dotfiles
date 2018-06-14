@@ -10,7 +10,7 @@ fi
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 # User specific aliases and functions
-alias fixalt="xmodmap -e \"keycode 64 = Alt_L\""
+alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 alias cd..="cd .."
 alias cd.="cd .."
 alias redshiftgui="python /home/markus/redshift-gui/redshift-gui.py"
@@ -35,6 +35,10 @@ alias gs="git fetch && git status"
 alias restartfamac="dropfamac && frontend && migrate"
 alias rollback="artisan migrate:rollback && migrate"
 alias clear="clear && clear"
+
+function gcp () {
+  git cherry-pick $1
+}
 
 function greset() {
 	git checkout -- $1

@@ -1,0 +1,69 @@
+// Place your settings in this file to overwrite the default settings
+{
+    // "php.suggest.basic": false,
+    // "editor.fontFamily": "Fira Code", -> =>
+    "editor.fontFamily": "Hasklig Medium",
+    "editor.fontLigatures": true,
+    "window.menuBarVisibility": "toggle",
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "editor.minimap.enabled": false,
+    "editor.lineHeight": 24,
+    "editor.fontSize": 16,
+    "editor.cursorBlinking": "blink",
+    "editor.cursorStyle": "line",
+    "auto-close-tag.enableAutoCloseSelfClosingTag": false,
+    "window.zoomLevel": 0,
+    "files.trimTrailingWhitespace": true,
+    "workbench.colorTheme": "Kary Pro Colors － Light",
+    "editor.tabSize": 4,
+    "indentRainbow.colors": [
+        "rgba(113,  82, 176, 0.03)", // 7152b0
+        "rgba(149,  66, 185, 0.03)", // 9542b9
+        "rgba( 66, 185, 131, 0.03)", // 42B983
+        "rgba(148,  15, 153, 0.03)", // 940f99
+        "rgba(214, 173, 214, 0.03)", // d6add6
+    ],
+    "search.useIgnoreFiles": true,
+    "merge-conflict.codeLens.enabled": true,
+    "merge-conflict.decorators.enabled": true,
+    "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\|;:'\",.<>/?",
+    "editor.rulers": [
+        120
+    ],
+    "phpmd.rules": "/home/markus/phpmessdetector.xml",
+    "phpcs.standard": "PSR2",
+    "editor.useTabStops": true,
+    "editor.detectIndentation": false,
+    "editor.tokenColorCustomizations": {
+        "[Kary Pro Colors － Light]": {
+            "comments": "#d6add6",
+            "functions": "#940f99",
+            "keywords": "#7152b0",
+            "numbers": "#42B983",
+            "strings": "#9542b9",
+            "types": "#512582",
+            "variables": "#b9427b"
+        }
+    },
+    "todohighlight.isEnable": true,
+    "gitlens.codeLens.scopes": [
+        "document"
+    ],
+    "zenMode.centerLayout": true,
+    "namespaceResolver.sortAlphabetically": true,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressResultsExplorerNotice": false,
+        "suppressShowKeyBindingsNotice": true
+    },
+    "phpfmt.psr2": true,
+    "phpfmt.indent_with_space": 4,
+    "gitlens.historyExplorer.enabled": true,
+    "javascript.preferences.quoteStyle": "single"
+}
