@@ -35,6 +35,8 @@ alias gs="git fetch && git status"
 alias restartfamac="dropfamac && frontend && migrate"
 alias rollback="artisan migrate:rollback && migrate"
 alias clear="clear && clear"
+# https://theptrk.com/2018/07/11/did-txt-file/
+alias did="vim +'normal Go' +'r!date' ~/did.txt"
 
 function gcp () {
   git cherry-pick $1
