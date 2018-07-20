@@ -37,6 +37,7 @@ alias rollback="artisan migrate:rollback && migrate"
 alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
+alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
 
 function gcp () {
   git cherry-pick $1
