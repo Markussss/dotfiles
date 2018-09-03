@@ -13,7 +13,7 @@
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "files.trimTrailingWhitespace": true,
     "workbench.colorTheme": "Kary Pro Colors － Light",
     "editor.tabSize": 4,
@@ -51,7 +51,6 @@
         "document"
     ],
     "zenMode.centerLayout": true,
-    "namespaceResolver.sortAlphabetically": true,
     "gitlens.advanced.messages": {
         "suppressCommitHasNoPreviousCommitWarning": false,
         "suppressCommitNotFoundWarning": false,
@@ -99,5 +98,6 @@
             "DodgerBlue"
         ],
         "Red"
-    ]
+    ],
+    "php.suggest.basic": false
 }
