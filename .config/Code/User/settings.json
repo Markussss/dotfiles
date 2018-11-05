@@ -13,7 +13,7 @@
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": -1,
+    "window.zoomLevel": 0,
     "files.trimTrailingWhitespace": true,
     "workbench.colorTheme": "Kary Pro Colors － Light",
     "editor.tabSize": 4,

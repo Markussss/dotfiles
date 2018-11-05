@@ -19,8 +19,8 @@ alias redshiftgui="python /home/markus/redshift-gui/redshift-gui.py"
 alias tinker="php artisan tinker"
 alias migrate="composer dumpautoload && php artisan migrate -vvv && php artisan db:seed -vvv"
 alias phpspec="php vendor/bin/phpspec"
-alias serve="beesu php artisan serve --port=80 &>/dev/null &" 
-alias serve8000="php artisan serve &>/dev/null &" 
+alias serve="beesu php artisan serve --port=80 &>/dev/null &"
+alias serve8000="php artisan serve &>/dev/null &"
 alias dropfdv="mysql -uroot -e \"drop database fdvhuset; create database fdvhuset;\""
 alias dropfamac="mysql -uroot -e \"drop database famacweb; create database famacweb;\""
 alias fixcleaningapp="standard --fix /home/markus/bitbucket/famacweb/famacweb/application/views/cleaning/js/cleaningApp.js"
@@ -38,6 +38,8 @@ alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
+alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i alsa_output.usb-Creative_Technology_Ltd_Sound_Blaster_E1_0000012297-00.analog-stereo.monitor -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
+alias recscreen="screenrec"
 
 function gcp () {
   git cherry-pick $1
@@ -83,6 +85,9 @@ export TODO="t"
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
+
+# Set default editor to vim
+export EDITOR="vim"
 
 # Set Xterm/screen/Tmux title with only a short hostname.
 # Uncomment this (or set SHORT_HOSTNAME to something else),
