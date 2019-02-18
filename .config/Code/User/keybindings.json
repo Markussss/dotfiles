@@ -83,5 +83,9 @@
     {
         "key": "shift+delete",
         "command": "deleteRight"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-editor.action.toggleTabFocusMode"
     }
 ]

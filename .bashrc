@@ -15,25 +15,17 @@ alias cd..="cd .."
 alias cd.="cd .."
 alias redshiftgui="python /home/markus/redshift-gui/redshift-gui.py"
 
-# Git aliases
 alias tinker="php artisan tinker"
 alias migrate="composer dumpautoload && php artisan migrate -vvv && php artisan db:seed -vvv"
 alias phpspec="php vendor/bin/phpspec"
 alias serve="beesu php artisan serve --port=80 &>/dev/null &"
 alias serve8000="php artisan serve &>/dev/null &"
-alias dropfdv="mysql -uroot -e \"drop database fdvhuset; create database fdvhuset;\""
-alias dropfamac="mysql -uroot -e \"drop database famacweb; create database famacweb;\""
-alias fixcleaningapp="standard --fix /home/markus/bitbucket/famacweb/famacweb/application/views/cleaning/js/cleaningApp.js"
-alias fam="cd /home/markus/bitbucket/famacweb/famacweb && git fetch && git status"
+alias fam="cd /home/markus/bitbucket/famacweb && git fetch && git status"
 alias fixes="cd /home/markus/bitbucket/fixes/famacweb/famacweb && git fetch && git status"
 alias frontend="cd /home/markus/bitbucket/frontend.famacweb && git fetch && git status"
 alias backend="cd /home/markus/bitbucket/backend.famacweb && git fetch && git status"
-alias initlaravel="cp /home/markus/.env . && composer install && artisan key:generate && migrate"
 alias rg="rg -p"
 alias less="less -R"
-alias gs="git fetch && git status"
-alias restartfamac="dropfamac && frontend && migrate"
-alias rollback="artisan migrate:rollback && migrate"
 alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
@@ -41,23 +33,31 @@ alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
 alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i alsa_output.usb-Creative_Technology_Ltd_Sound_Blaster_E1_0000012297-00.analog-stereo.monitor -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
 alias recscreen="screenrec"
 
-function gcp () {
-  git cherry-pick $1
-}
+alias chattr='chattr -V'
+alias chmod='chmod -v'
+alias chown='chown -v'
+alias cp='cp -iv'
+alias dd='dd status=progress'
+alias fsck='fsck -v'
+alias grub-install='grub-install -v'
+alias kpartx='kpartx -v'
+alias losetup='losetup -v'
+alias mkdir='mkdir -v'
+alias mount='mount -v'
+alias mv='mv -iv'
+alias partprobe='partprobe -s'
+alias rm='rm -Iv'
+alias rmdir='rmdir -v'
+alias rsync='rsync --progress -v'
+alias umount='umount -v'
 
-function greset() {
-	git checkout -- $1
-}
+source ~/.secret-alias
+#https://superuser.com/a/382601/521689
+alias sudo='sudo '
 
 function artisan() {
 	php artisan "$@"
 }
-
-function createmod() {
-	artisan famacweb:createModule $1
-}
-
-eval $(thefuck --alias)
 
 # Path to the bash it configuration
 export BASH_IT="/home/markus/.bash_it"
