@@ -59,6 +59,10 @@ function artisan() {
 	php artisan "$@"
 }
 
+function rgopen () {
+  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/code /g" | bash
+}
+
 # Path to the bash it configuration
 export BASH_IT="/home/markus/.bash_it"
 
