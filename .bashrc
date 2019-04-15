@@ -25,7 +25,6 @@ alias fixes="cd /home/markus/bitbucket/fixes/famacweb && git fetch && git status
 alias frontend="cd /home/markus/bitbucket/frontend.famacweb && git fetch && git status"
 alias backend="cd /home/markus/bitbucket/backend.famacweb && git fetch && git status"
 alias rg="rg -p"
-alias less="less -R"
 alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
@@ -66,13 +65,27 @@ function rgopen () {
   rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/code /g" | bash
 }
 
+# Set default editor to vim
+export EDITOR="vim"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# If not running interactively, don't do anything
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
 # Path to the bash it configuration
 export BASH_IT="/home/markus/.bash_it"
 
-# Lock and Load a custom theme file
+# Lock and Load a custom theme file.
+# Leave empty to disable theming.
 # location /.bash_it/themes/
 #export BASH_IT_THEME='bobby'
-export BASH_IT_THEME='powerline'
+export BASH_IT_THEME='zork'
 
 # (Advanced): Change this to the name of your remote repo if you
 # cloned bash-it with a remote other than origin such as `bash-it`.
@@ -92,9 +105,6 @@ export TODO="t"
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
-
-# Set default editor to vim
-export EDITOR="vim"
 
 # Set Xterm/screen/Tmux title with only a short hostname.
 # Uncomment this (or set SHORT_HOSTNAME to something else),
@@ -118,9 +128,8 @@ export EDITOR="vim"
 # after enabling or disabling aliases, plugins, and completions.
 # export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
 
+# Uncomment this to make Bash-it create alias reload.
+# export BASH_IT_RELOAD_LEGACY=1
+
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
