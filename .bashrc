@@ -51,6 +51,9 @@ alias rmdir='rmdir -v'
 alias rsync='rsync --progress -v'
 alias umount='umount -v'
 
+alias phinx="vendor/bin/phinx"
+
+
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '

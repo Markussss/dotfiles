@@ -101,5 +101,19 @@
     "php.validate.run": "onType",
     "gitlens.views.fileHistory.enabled": true,
     "gitlens.views.lineHistory.enabled": true,
-    "phpstan.path": "/home/markus/.config/composer/vendor/bin/phpstan"
+    "phpstan.path": "/home/markus/.config/composer/vendor/bin/phpstan",
+    "workbench.editor.enablePreview": false,
+    "javascript.validate.enable": false,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        { "language": "vue", "autoFix": true }
+    ],
+    "vetur.validation.template": false,
+    "atlascode.jira.workingProject": {
+        "id": "10000",
+        "key": "FW",
+        "name": "FamacWeb"
+    }
+
 }
