@@ -36,7 +36,7 @@ alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
-alias screenrec='ffmpeg -video_size 1920x1080 -framerate 144 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mkv'
+alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
 alias recscreen="screenrec"
 alias ripme="java -jar ~/ripme/ripme.jar"
 alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C display)"
