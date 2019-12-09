@@ -8,6 +8,7 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+alias codecept="php vendor/bin/codecept"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
