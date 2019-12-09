@@ -1,6 +1,7 @@
 // Place your settings in this file to overwrite the default settings
 {
-    "editor.fontFamily": "Hasklig Medium",
+    "editor.fontFamily": "Hasklig",
+    "editor.fontWeight": "400",
     "editor.fontLigatures": true,
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
@@ -10,7 +11,7 @@
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 2,
     "files.trimTrailingWhitespace": true,
     "workbench.colorTheme": "Kary Pro Colors － Light",
     "indentRainbow.colors": [
