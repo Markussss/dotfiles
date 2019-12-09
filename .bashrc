@@ -8,6 +8,7 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+alias composer="php -d memory_limit=-1 `which composer`"
 alias codecept="php vendor/bin/codecept"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"

@@ -29,15 +29,15 @@
         "command": "editor.action.transformToLowercase",
         "when": "editorTextFocus"
     },
-    {
-        "key": "alt+left alt+left",
-        "command": "editor.fold",
-        "when": "editorTextFocus"
-    }, {
-        "key": "alt+right alt+right",
-        "command": "editor.unfold",
-        "when": "editorTextFocus"
-    },
+    // {
+    //     "key": "alt+left alt+left",
+    //     "command": "editor.fold",
+    //     "when": "editorTextFocus"
+    // }, {
+    //     "key": "alt+right alt+right",
+    //     "command": "editor.unfold",
+    //     "when": "editorTextFocus"
+    // },
     {
         "key": "ctrl+'",
         "command": "editor.action.commentLine",
