@@ -29,8 +29,10 @@
         120
     ],
     "phpmd.rules": "/home/markus/phpmessdetector.xml",
+    "phpcs.enable": true,
     "phpcs.standard": "PSR2",
     "phpcs.showWarnings": false,
+    "phpcs.executablePath": "/Users/markus/.composer/vendor/bin/phpcs",
     "editor.useTabStops": true,
     "editor.detectIndentation": false,
     "editor.tokenColorCustomizations": {

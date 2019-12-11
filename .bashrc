@@ -8,6 +8,8 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
+alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias composer="php -d memory_limit=-1 `which composer`"
 alias codecept="php vendor/bin/codecept"
 alias gbg="git bisect good"
@@ -62,6 +64,12 @@ source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
 
+function new() {
+  mkdir -p "$(dirname "$1")"
+  touch $1
+  $EXTERNAL_EDITOR $1
+}
+
 function artisan() {
 	php artisan "$@"
 }
@@ -79,6 +87,7 @@ function tin () {
 
 # Set default editor to vim
 export EDITOR="vim"
+export EXTERNAL_EDITOR="storm"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
