@@ -99,5 +99,12 @@
         ],
         "Red"
     ],
-    "php.suggest.basic": false
+    "php.suggest.basic": false,
+    "breadcrumbs.enabled": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.validate":[
+        "javascript",
+        "javascriptreact",
+        "vuejs"
+    ]
 }

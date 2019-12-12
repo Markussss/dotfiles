@@ -38,8 +38,24 @@ alias clear="clear && clear"
 # https://theptrk.com/2018/07/11/did-txt-file/
 alias did="vim +'normal Go' +'r!date' ~/did.txt"
 alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
-alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i alsa_output.usb-Creative_Technology_Ltd_Sound_Blaster_E1_0000012297-00.analog-stereo.monitor -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
+alias screenrec='ffmpeg -video_size 1920x1080 -framerate 144 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +%Y-%m-%d_%H:%M:%S).mkv'
 alias recscreen="screenrec"
+alias ripme="java -jar ~/ripme/ripme.jar"
+alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C display)"
+alias jadd="jotta-cli add"
+alias jstat="jotta-cli status"
+alias jscan="jotta-cli scan"
+alias jtail="jotta-cli tail"
+alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
+alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
+
+function wt () {
+	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
+}
+
+function instagram-dl () {
+  ripme -u https://www.instagram.com/$1
+}
 
 function gcp () {
   git cherry-pick $1
@@ -57,7 +73,7 @@ function createmod() {
 	artisan famacweb:createModule $1
 }
 
-eval $(thefuck --alias)
+. <(jotta-cli completion)
 
 # Path to the bash it configuration
 export BASH_IT="/home/markus/.bash_it"
