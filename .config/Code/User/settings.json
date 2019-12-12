@@ -1,10 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
-    // "php.suggest.basic": false,
-    // "editor.fontFamily": "Fira Code", -> =>
-    "editor.fontFamily": "Hasklig Medium",
+    "editor.fontFamily": "Hasklig",
+    "editor.fontWeight": "400",
     "editor.fontLigatures": true,
-    "window.menuBarVisibility": "toggle",
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "editor.minimap.enabled": false,
@@ -16,7 +14,6 @@
     "window.zoomLevel": 0,
     "files.trimTrailingWhitespace": true,
     "workbench.colorTheme": "Kary Pro Colors － Light",
-    "editor.tabSize": 4,
     "indentRainbow.colors": [
         "rgba(113,  82, 176, 0.03)", // 7152b0
         "rgba(149,  66, 185, 0.03)", // 9542b9
@@ -32,7 +29,10 @@
         120
     ],
     "phpmd.rules": "/home/markus/phpmessdetector.xml",
+    "phpcs.enable": true,
     "phpcs.standard": "PSR2",
+    "phpcs.showWarnings": false,
+    "phpcs.executablePath": "/Users/markus/.composer/vendor/bin/phpcs",
     "editor.useTabStops": true,
     "editor.detectIndentation": false,
     "editor.tokenColorCustomizations": {
@@ -46,7 +46,6 @@
             "variables": "#b9427b"
         }
     },
-    "todohighlight.isEnable": true,
     "gitlens.codeLens.scopes": [
         "document"
     ],
@@ -102,9 +101,17 @@
     "php.suggest.basic": false,
     "breadcrumbs.enabled": true,
     "eslint.autoFixOnSave": true,
-    "eslint.validate":[
+    "window.titleBarStyle": "custom",
+    "php.validate.run": "onType",
+    "gitlens.views.fileHistory.enabled": true,
+    "gitlens.views.lineHistory.enabled": true,
+    "phpstan.path": "/home/markus/.config/composer/vendor/bin/phpstan",
+    "workbench.editor.enablePreview": false,
+    "javascript.validate.enable": false,
+    "eslint.validate": [
         "javascript",
         "javascriptreact",
-        "vuejs"
-    ]
+        { "language": "vue", "autoFix": true }
+    ],
+    "vetur.validation.template": false
 }

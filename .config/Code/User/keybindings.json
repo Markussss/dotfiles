@@ -13,6 +13,10 @@
         "command": "editor.action.copyLinesDownAction"
     },
     {
+        "key": "cmd+shift+d",
+        "command": "editor.action.copyLinesDownAction"
+    },
+    {
         "key": "ctrl+shift+f",
         "command": ""
     },
@@ -29,15 +33,15 @@
         "command": "editor.action.transformToLowercase",
         "when": "editorTextFocus"
     },
-    {
-        "key": "alt+left alt+left",
-        "command": "editor.fold",
-        "when": "editorTextFocus"
-    }, {
-        "key": "alt+right alt+right",
-        "command": "editor.unfold",
-        "when": "editorTextFocus"
-    },
+    // {
+    //     "key": "alt+left alt+left",
+    //     "command": "editor.fold",
+    //     "when": "editorTextFocus"
+    // }, {
+    //     "key": "alt+right alt+right",
+    //     "command": "editor.unfold",
+    //     "when": "editorTextFocus"
+    // },
     {
         "key": "ctrl+'",
         "command": "editor.action.commentLine",
@@ -83,5 +87,69 @@
     {
         "key": "shift+delete",
         "command": "deleteRight"
+    },
+    {
+        "key": "ctrl+m",
+        "command": "-editor.action.toggleTabFocusMode"
+    },
+    {
+        "key": "cmd+down",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+down",
+        "command": "-editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "cmd+up",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "alt+up",
+        "command": "-editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "scrollLineDown",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-scrollLineDown",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+up",
+        "command": "scrollLineUp",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-scrollLineUp",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "shift+cmd+up",
+        "command": "editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+up",
+        "command": "-editor.action.insertCursorAbove",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+cmd+down",
+        "command": "editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+cmd+down",
+        "command": "-editor.action.insertCursorBelow",
+        "when": "editorTextFocus"
     }
 ]
