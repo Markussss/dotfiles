@@ -8,6 +8,8 @@ autocmd BufRead ~/notater/* setlocal ft=markdown
 " Execute mdless on the current file when pressing ctrl+a
 map <C-a> <esc>:!mdless %:p<return>
 
+" Show line numbers
+set number
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: 
@@ -98,7 +100,7 @@ set hid
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+set whichwrap+=<,>
 
 " Ignore case when searching
 set ignorecase
@@ -293,7 +295,7 @@ set hid
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
+set whichwrap+=<,>
 
 " Ignore case when searching
 set ignorecase
@@ -389,9 +391,9 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" Linebreak on 500 characters
+" Linebreak on 80 characters
 set lbr
-set tw=500
+set tw=79
 
 set ai "Auto indent
 set si "Smart indent
@@ -590,9 +592,9 @@ endfunction
 
 
 
-" Linebreak on 500 characters
+" Linebreak on 80 characters
 set lbr
-set tw=500
+set tw=79
 
 set ai "Auto indent
 set si "Smart indent
