@@ -6,7 +6,7 @@ call matchadd('ColorColumn', '\%81v', 100)
 autocmd BufRead ~/notater/* setlocal ft=markdown
 
 " Execute mdless on the current file when pressing ctrl+a
-map <C-a> <esc>:!mdless %:p<return>
+" map <C-a> <esc>:!mdless %:p<return>
 
 " Show line numbers
 set number
@@ -203,7 +203,7 @@ call matchadd('ColorColumn', '\%81v', 100)
 autocmd BufRead ~/notater/* setlocal ft=markdown
 
 " Execute mdless on the current file when pressing ctrl+a
-map <C-a> <esc>:!mdless %:p<return>
+" map <C-a> <esc>:!mdless %:p<return>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

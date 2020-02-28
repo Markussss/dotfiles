@@ -12,7 +12,9 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 
 # User specific aliases and functions
 
-alias cacheclear="while true; do bin/console cache:clear; osascript -e 'display notification \"cleared cache!\"' && sleep 300; done"
+alias refresh="console cache:clear && rm -rf vendor/ && composer install &&
+  console doctrine:schema:update --force"
+alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
 alias blog="cd ~/Sites/blog"
 alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
 alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
@@ -50,12 +52,17 @@ alias rsync='rsync --progress -v'
 alias umount='umount -v'
 alias clrg='clear && rg -i'
 
-alias aserve="artisan config:clear && artisan cache:clear && artisan route:cache && artisan view:clear && composer dumpautoload && artisan serve"
-
-
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
+
+function cacheclear() {
+    while true; do
+        console cache:clear
+        osascript -e 'display notification "cleared cache!"'
+        sleep 300
+    done
+}
 
 function console() {
     test -f app/console && app/console $@ && return 0
@@ -65,13 +72,15 @@ function console() {
         return 1
     else
         (cd .. && console $@)
+        return 0
     fi
 }
 
 function fixtures() {
+    console doctrine:database:drop --force $1
     console doctrine:database:create $1
     console doctrine:schema:create $1
-    console doctrine:fixtures:load  $1
+    yes | console doctrine:fixtures:load $1
 }
 
 function new() {
@@ -81,7 +90,14 @@ function new() {
 }
 
 function rgopen () {
-  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/code /g" | bash
+  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/$EXTERNAL_EDITOR /g" | bash
+}
+
+function fixconflicts () {
+  TEMP_EXTERNAL_EDITOR=$EXTERNAL_EDITOR
+  EXTERNAL_EDITOR='code'
+  rgopen "<<<<" "\."
+  EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
 
 # Set default editor to vim
@@ -159,3 +175,8 @@ source "$BASH_IT"/bash_it.sh
 # disable Ctrl+S freezes
 stty -ixon
 # export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+if test -f .bashrc_extra; then
+  source .bashrc_extra
+fi
+
