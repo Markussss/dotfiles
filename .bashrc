@@ -11,8 +11,14 @@ fi
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 
+# User specific aliases and functions
 alias clip="xclip -selection c"
+alias refresh="console cache:clear && rm -rf vendor/ && composer install && console doctrine:schema:update --force"
+alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
+alias blog="cd ~/Sites/blog"
+alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
 alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias composer="php -d memory_limit=-1 `which composer`"
@@ -22,26 +28,13 @@ alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
-# User specific aliases and functions
+
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 alias cd..="cd .."
 alias cd.="cd .."
-alias redshiftgui="python /home/markus/redshift-gui/redshift-gui.py"
 
-alias tinker="php artisan tinker"
-alias migrate="composer dumpautoload && php artisan migrate -vvv && php artisan db:seed -vvv"
-alias phpspec="php vendor/bin/phpspec"
-alias serve="beesu php artisan serve --port=80 &>/dev/null &"
-alias serve8000="php artisan serve &>/dev/null &"
-alias fam="cd /home/markus/bitbucket/famacweb && git fetch && git status"
-alias fixes="cd /home/markus/bitbucket/fixes/famacweb && git fetch && git status"
-alias frontend="cd /home/markus/bitbucket/frontend.famacweb && git fetch && git status"
-alias backend="cd /home/markus/bitbucket/backend.famacweb && git fetch && git status"
 alias rg="rg -p"
 alias clear="clear && clear"
-# https://theptrk.com/2018/07/11/did-txt-file/
-alias did="vim +'normal Go' +'r!date' ~/did.txt"
-alias todo="vim +'normal Go -  ' -c 'startinsert' ~/todo.txt"
 alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
 alias recscreen="screenrec"
 alias ripme="java -jar ~/ripme/ripme.jar"
@@ -60,7 +53,6 @@ function wt () {
 function instagram-dl () {
   ripme -u https://www.instagram.com/$1
 }
-
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -80,12 +72,36 @@ alias rsync='rsync --progress -v'
 alias umount='umount -v'
 alias clrg='clear && rg -i'
 
-alias aserve="artisan config:clear && artisan cache:clear && artisan route:cache && artisan view:clear && composer dumpautoload && artisan serve"
-
-
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
+
+function cacheclear() {
+    while true; do
+        console cache:clear
+        osascript -e 'display notification "cleared cache!"'
+        sleep 300
+    done
+}
+
+function console() {
+    test -f app/console && app/console $@ && return 0
+    test -f bin/console && bin/console $@ && return 0
+    if [ $(pwd) == "/" ]; then
+        echo "found no console"
+        return 1
+    else
+        (cd .. && console $@)
+        return 0
+    fi
+}
+
+function fixtures() {
+    console doctrine:database:drop --force $1
+    console doctrine:database:create $1
+    console doctrine:schema:create $1
+    yes | console doctrine:fixtures:load $1
+}
 
 function new() {
   mkdir -p "$(dirname "$1")"
@@ -93,19 +109,15 @@ function new() {
   $EXTERNAL_EDITOR $1
 }
 
-function artisan() {
-	php artisan "$@"
-}
-
 function rgopen () {
-  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/code /g" | bash
-}
-function phinx() {
-  vendor/bin/phinx $1 $2 $3 --configuration config/config-phinx.php
+  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/$EXTERNAL_EDITOR /g" | bash
 }
 
-function tin () {
-  cat $1 |  grep -E $2 > insert
+function fixconflicts () {
+  TEMP_EXTERNAL_EDITOR=$EXTERNAL_EDITOR
+  EXTERNAL_EDITOR='code'
+  rgopen "<<<<" "\."
+  EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
 
 eval "$(pipenv --completion)"
@@ -115,9 +127,7 @@ eval "$(pipenv --completion)"
 export EDITOR="vim"
 export EXTERNAL_EDITOR="storm"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# eval "$(symfony-autocomplete)"
 
 # If not running interactively, don't do anything
 case $- in
@@ -183,3 +193,9 @@ source "$BASH_IT"/bash_it.sh
 
 # disable Ctrl+S freezes
 stty -ixon
+# export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+if test -f .bashrc_extra; then
+  source .bashrc_extra
+fi
+
