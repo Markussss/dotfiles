@@ -9,6 +9,10 @@ fi
 # export SYSTEMD_PAGER=
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin"
+export PATH="$PATH:$HOME/bin"
+
+alias clip="xclip -selection c"
 alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias composer="php -d memory_limit=-1 `which composer`"
@@ -18,7 +22,6 @@ alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 # User specific aliases and functions
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 alias cd..="cd .."
@@ -104,6 +107,9 @@ function phinx() {
 function tin () {
   cat $1 |  grep -E $2 > insert
 }
+
+eval "$(pipenv --completion)"
+
 
 # Set default editor to vim
 export EDITOR="vim"

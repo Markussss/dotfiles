@@ -11,9 +11,8 @@
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "files.trimTrailingWhitespace": true,
-    "workbench.colorTheme": "Kary Pro Colors － Light",
     "indentRainbow.colors": [
         "rgba(113,  82, 176, 0.03)", // 7152b0
         "rgba(149,  66, 185, 0.03)", // 9542b9
@@ -113,5 +112,6 @@
         "javascriptreact",
         { "language": "vue", "autoFix": true }
     ],
-    "vetur.validation.template": false
+    "vetur.validation.template": false,
+    "workbench.colorTheme": "Kary Pro Colors － Light"
 }
