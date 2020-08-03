@@ -158,7 +158,10 @@ function fixconflicts () {
   EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
 
-eval "$(pipenv --completion)"
+
+if [ -f pipenv ]; then
+  eval "$(pipenv --completion)"
+fi
 
 
 # Set default editor to vim
