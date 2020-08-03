@@ -15,6 +15,10 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 
 # User specific aliases and functions
 alias clip="xclip -selection c"
+
+alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
+alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
+alias redis="docker exec -it aunivers_cache_1 redis-cli -n 1"
 alias refresh="console cache:clear && rm -rf vendor/ && composer install && console doctrine:schema:update --force"
 alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
 alias blog="cd ~/Sites/blog"
@@ -85,6 +89,7 @@ function cacheclear() {
 }
 
 function console() {
+    test -f console.sh && ./console.sh $@ && return 0
     test -f app/console && app/console $@ && return 0
     test -f bin/console && bin/console $@ && return 0
     if [ $(pwd) == "/" ]; then
@@ -94,6 +99,39 @@ function console() {
         (cd .. && console $@)
         return 0
     fi
+}
+
+function migration() {
+    if [ -z "$1" ]; then
+        echo "need a content type identifier to match against"
+        return 1
+    fi
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    BRANCH=${BRANCH#feature/*}
+    console kaliop:migration:generate --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
+}
+
+function unmigrate() {
+    if [ -z "$1" ]; then
+        echo "need a migration to unmigrate"
+        return 1
+    fi
+  console kaliop:migration:migration $1 --delete
+}
+
+function migrate() {
+    console kaliop:migration:migrate
+}
+
+function restoresnap() {
+    echo "DROP DATABASE aunivers; CREATE DATABASE aunivers;" &&
+    docker exec -i aunivers_db_1 mysql -uroot aunivers -e 'DROP DATABASE aunivers; CREATE DATABASE aunivers;' &&
+    echo "pv aunivers-stage:stage.sql | mysql -uroot aunivers" &&
+    pv -petr ../aunivers-stage:stage.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
+    echo "console cache:clear" &&
+    docker exec -it aunivers_web_1 bin/console cache:clear &&
+    echo "console cache:pool:clear cache.redis" &&
+    docker exec -it aunivers_web_1 bin/console cache:pool:clear cache.redis
 }
 
 function fixtures() {
