@@ -13,9 +13,17 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.loca
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 
+# Improve history
+shopt -s histappend
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export HISTCONTROL=ignoredups:erasedups
+export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
 # User specific aliases and functions
 alias clip="xclip -selection c"
 
+alias refreshdocker="docker-compose up --build db web proxy tools"
 alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
 alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
 alias redis="docker exec -it aunivers_cache_1 redis-cli -n 1"
@@ -157,7 +165,6 @@ function fixconflicts () {
   rgopen "<<<<" "\."
   EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
-
 
 if [ -f pipenv ]; then
   eval "$(pipenv --completion)"
