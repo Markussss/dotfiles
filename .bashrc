@@ -17,7 +17,7 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 shopt -s histappend
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoreboth
 export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
 # User specific aliases and functions
