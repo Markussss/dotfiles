@@ -11,9 +11,8 @@
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -1,
     "files.trimTrailingWhitespace": true,
-    "workbench.colorTheme": "Kary Pro Colors － Light",
     "indentRainbow.colors": [
         "rgba(113,  82, 176, 0.03)", // 7152b0
         "rgba(149,  66, 185, 0.03)", // 9542b9
@@ -30,6 +29,7 @@
     ],
     "phpmd.rules": "/home/markus/phpmessdetector.xml",
     "phpcs.enable": true,
+    "editor.copyWithSyntaxHighlighting": false,
     "phpcs.standard": "PSR2",
     "phpcs.showWarnings": false,
     "phpcs.executablePath": "/Users/markus/.composer/vendor/bin/phpcs",
@@ -114,7 +114,17 @@
         { "language": "vue", "autoFix": true }
     ],
     "vetur.validation.template": false,
+    "workbench.colorTheme": "Kary Pro Colors － Light",
+    "yaml.schemas": {
+        "file:///Users/markus/.vscode/extensions/atlassian.atlascode-2.5.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
-    }
+    },
+    "editor.quickSuggestions": true,
+    "php.validate.enable": false,
+    "emmet.excludeLanguages": [
+        "markdown",
+        "php"
+    ]
 }

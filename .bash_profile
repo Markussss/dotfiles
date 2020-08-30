@@ -1,12 +1,27 @@
-# .bash_profile
-
-# Get the aliases and functions
-if [ -f ~/.bashrc ]; then
-	. ~/.bashrc
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+if [ -f /usr/libexec/java_home ]; then
+  export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+fi
+alias ls="ls --color=auto --group-directories"
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+if [ -r ~/.bashrc ]; then
+   source ~/.bashrc
 fi
 
-# User specific environment and startup programs
+# BEGIN SNIPPET: Platform.sh CLI configuration
+HOME=${HOME:-'/Users/markus'}
+export PATH="$HOME/"'.platformsh/bin':"$PATH"
+if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
 
-PATH=$PATH:$HOME/.local/bin:$HOME/bin
+### LESS ###
+# Enable syntax-highlighting in less.
+# brew install source-highlight
+# First, add these two lines to ~/.bashrc
+export LESSOPEN="| /usr/local/bin/src-hilite-lesspipe.sh %s"
+export LESS=" -R "
+alias less='less -m -N -g -i -J --underline-special --SILENT'
 
-export PATH
+if [ -f /usr/share/locale/no_NO.UTF-8 ]; then
+  export LANG=UTF-8
+  export LC_ALL=no_NO.UTF-8
+fi
