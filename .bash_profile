@@ -1,7 +1,12 @@
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-alias ls="ls --color=auto --group-directories"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
-if [ -r ~/.bashrc ]; then
-   source ~/.bashrc
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
 fi
 
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH

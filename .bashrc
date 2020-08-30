@@ -9,6 +9,9 @@ fi
 # export SYSTEMD_PAGER=
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin"
+
+alias killwine="kill -9 $(ps aux | grep '\.exe' | cut -d " "  -f 5)"
+alias minecraft="/home/markus/Minecraft/Minecraft &"
 alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias composer="php -d memory_limit=-1 `which composer`"
