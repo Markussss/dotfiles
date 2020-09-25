@@ -10,7 +10,7 @@ fi
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin"
 
-alias killwine="kill -9 $(ps aux | grep '\.exe' | cut -d " "  -f 5)"
+alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
 alias minecraft="/home/markus/Minecraft/Minecraft &"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
