@@ -15,12 +15,13 @@ alias minecraft="/home/markus/Minecraft/Minecraft &"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Improve history
 shopt -s histappend
 export HISTSIZE=100000
 export HISTFILESIZE=100000
-export HISTCONTROL=ignoreboth
+#export HISTCONTROL=ignoreboth
 export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
 # User specific aliases and functions

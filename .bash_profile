@@ -24,4 +24,5 @@ alias less='less -m -N -g -i -J --underline-special --SILENT'
 if [ -f /usr/share/locale/no_NO.UTF-8 ]; then
   export LANG=UTF-8
   export LC_ALL=no_NO.UTF-8
+  export LC_CTYPE=no_NO.UTF-8
 fi
