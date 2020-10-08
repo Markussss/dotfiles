@@ -382,5 +382,6 @@
                 "name": "markdown-all-in-one"
             }
         ]
-    }
+    },
+    "workbench.editor.focusRecentEditorAfterClose": false
 }
