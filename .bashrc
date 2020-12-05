@@ -61,6 +61,7 @@ alias jscan="jotta-cli scan"
 alias jtail="jotta-cli tail"
 alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
+alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
 
 function wt () {
 	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
