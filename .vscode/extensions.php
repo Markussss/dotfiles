@@ -12,7 +12,7 @@ while ($line = trim(fgets($stdin))) {
   $extensions[] = $line;
 }
 fclose($stdin);
-echo "    \"" . implode($extensions, "\",\n    \"") . "\"\n  ";
+echo "    \"" . implode("\",\n    \"", $extensions) . "\"\n  ";
 ?>
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
