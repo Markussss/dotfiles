@@ -6,12 +6,11 @@
     "telemetry.enableCrashReporter": false,
     "telemetry.enableTelemetry": false,
     "editor.minimap.enabled": false,
-    "editor.lineHeight": 24,
     "editor.fontSize": 16,
     "editor.cursorBlinking": "blink",
     "editor.cursorStyle": "line",
     "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 1,
+    "window.zoomLevel": -1,
     "files.trimTrailingWhitespace": true,
     "indentRainbow.colors": [
         "rgba(113,  82, 176, 0.03)", // 7152b0
@@ -25,7 +24,7 @@
     "merge-conflict.decorators.enabled": true,
     "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\|;:'\",.<>/?",
     "editor.rulers": [
-        120
+        100
     ],
     "phpmd.rules": "/home/markus/phpmessdetector.xml",
     "phpcs.enable": true,
@@ -34,7 +33,9 @@
     "phpcs.showWarnings": false,
     "phpcs.executablePath": "/Users/markus/.composer/vendor/bin/phpcs",
     "editor.useTabStops": true,
-    "editor.detectIndentation": false,
+    "workbench.colorCustomizations": {
+        "editor.background": "#ffffff"
+    },
     "editor.tokenColorCustomizations": {
         "[Kary Pro Colors － Light]": {
             "comments": "#d6add6",
@@ -87,15 +88,10 @@
     "workbench.sideBar.location": "right",
     "javascript.implicitProjectConfig.checkJs": true,
     "javascript.implicitProjectConfig.experimentalDecorators": true,
-    "bracketPairColorizer.consecutivePairColors": [
-        "()",
-        "[]",
-        "{}",
-        [
-            "Orange",
-            "MediumOrchid",
-            "DodgerBlue"
-        ],
+    "bracket-pair-colorizer-2.colors": [
+        "Orange",
+        "MediumOrchid",
+        "DodgerBlue",
         "Red"
     ],
     "php.suggest.basic": false,
@@ -115,5 +111,10 @@
     ],
     "vetur.validation.template": false,
     "workbench.colorTheme": "Huacat Pink Theme",
-    "editor.tabSize": 2
+    "workbench.editor.focusRecentEditorAfterClose": false,
+    "editor.lineHeight": 32,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 100,
+    "html.format.wrapLineLength": 100
 }
