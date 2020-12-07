@@ -1,0 +1,5 @@
+#!/bin/bash
+
+code --list-extensions \
+  | php ~/.vscode/extensions.php \
+  > ~/.vscode/extensions.json
