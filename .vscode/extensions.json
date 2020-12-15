@@ -4,6 +4,8 @@
   // List of extensions which should be recommended for users of this workspace.
   "recommendations": [
     "alexdima.copy-relative-path",
+    "bmewburn.vscode-intelephense-client",
+    "BoWarren46.vue-docblocker",
     "christian-kohler.npm-intellisense",
     "christian-kohler.path-intellisense",
     "dbaeumer.vscode-eslint",
@@ -16,13 +18,16 @@
     "formulahendry.auto-complete-tag",
     "formulahendry.auto-rename-tag",
     "huacat.pink-theme",
+    "marabesi.php-import-checker",
     "mblode.twig-language-2",
     "Mcbai.vscode-vuex-peek",
     "MehediDracula.php-namespace-resolver",
     "mishannn.vuex-suggest",
+    "neilbrayfield.php-docblocker",
     "octref.vetur",
     "ow.vscode-subword-navigation",
     "redhat.vscode-yaml",
+    "TheNouillet.symfony-vscode",
     "whatwedo.twig",
     "yzhang.markdown-all-in-one"
     ],

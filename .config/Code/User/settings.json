@@ -11,12 +11,12 @@
     "editor.tabCompletion": "on",
     "editor.tabSize": 2,
     "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 100,
+    "editor.wordWrapColumn": 120,
     "editor.wrappingIndent": "indent",
     "editor.cursorSurroundingLines": 5,
     "editor.cursorStyle": "line-thin",
-    "editor.formatOnPaste": true,
-    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.formatOnSave": false,
     "editor.minimap.enabled": false,
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.quickSuggestions": true,
@@ -47,10 +47,6 @@
     "search.exclude": {
         "**/*.min.js": true
     },
-    "files.exclude": {
-        "**/node_modules/**": true,
-        "**/vendor/**": true
-    },
     "search.searchOnTypeDebouncePeriod": 0,
     "search.showLineNumbers": true,
     "search.useIgnoreFiles": false,
@@ -70,5 +66,21 @@
     "php.suggest.basic": false,
     "php.validate.enable": false,
     "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\\\|;:'\\\",.<>/?",
-    "workbench.colorTheme": "Huacat Pink Theme"
+    "workbench.colorTheme": "Huacat Pink Theme",
+    "php-docblocker.returnGap": true,
+    "php-docblocker.qualifyClassNames": true,
+    "files.associations": {
+        "*.php":"php"
+    },
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        "vue"
+      ],
+    "vetur.validation.template": false,
+    "vetur.experimental.templateInterpolationService": true,
+    "javascript.implicitProjectConfig.checkJs": false,
+    "namespaceResolver.autoSort": false,
+    "namespaceResolver.sortOnSave": false,
+    "namespaceResolver.sortAlphabetically": true,
 }
