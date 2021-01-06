@@ -63,6 +63,18 @@ alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
 
+function assets() {
+  if [ $1 == "restart" ]; then
+    docker-compose restart assets
+  else
+    docker exec -it aunivers_assets_1 yarn $@
+  fi
+}
+
+function docker-nginx() {
+  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
+}
+
 function wt () {
 	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
 }
@@ -256,4 +268,3 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
