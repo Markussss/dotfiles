@@ -49,7 +49,6 @@ alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L
 alias cd..="cd .."
 alias cd.="cd .."
 
-alias rg="rg -p"
 alias clear="clear && clear"
 alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
 alias recscreen="screenrec"
@@ -62,6 +61,16 @@ alias jtail="jotta-cli tail"
 alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
+
+function vpn() {
+  if [ $1 == "connect" ]; then
+    nordvpnteams disconnect
+    sleep 2
+    nordvpnteams connect aschehoug-undervisning-4DkitRSQ
+  else
+    nordvpnteams disconnect
+  fi
+}
 
 function assets() {
   if [ $1 == "restart" ]; then
@@ -104,6 +113,10 @@ alias clrg='clear && rg -i'
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
+
+function rg() {
+  /usr/bin/rg -p $@ | ~/bin/link_to_file.sh
+}
 
 function cacheclear() {
     while true; do
@@ -151,8 +164,8 @@ function migrate() {
 function restoresnap() {
     echo "DROP DATABASE aunivers; CREATE DATABASE aunivers;" &&
     docker exec -i aunivers_db_1 mysql -uroot aunivers -e 'DROP DATABASE aunivers; CREATE DATABASE aunivers;' &&
-    echo "pv aunivers-stage:stage.sql | mysql -uroot aunivers" &&
-    pv -petr ../aunivers-stage:stage.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
+    echo "pv aunivers-stage.sql | mysql -uroot aunivers" &&
+    pv -petr ../aunivers-stage.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
     echo "console cache:clear" &&
     docker exec -it aunivers_web_1 bin/console cache:clear &&
     echo "console cache:pool:clear cache.redis" &&
