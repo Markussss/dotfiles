@@ -196,6 +196,23 @@ function fixconflicts () {
   EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
 
+function vpnconnect () {
+  nordvpnteams disconnect
+  sudo chattr -i /etc/resolv.conf
+  sudo su -c 'echo -e "nameserver 103.86.96.100\\nnameserver 103.86.99.100" > /etc/resolv.conf'
+  sudo chattr +i /etc/resolv.conf
+  cat /etc/resolv.conf
+  nordvpnteams connect $1
+}
+
+function vpndisconnect () {
+  sudo chattr -i /etc/resolv.conf
+  sudo su -c 'echo -e "search home\\nnameserver 92.220.228.70\\nnameserver 109.247.114.4" > /etc/resolv.conf'
+  sudo chattr +i /etc/resolv.conf
+  cat /etc/resolv.conf
+  nordvpnteams disconnect
+}
+
 if [ -f pipenv ]; then
   eval "$(pipenv --completion)"
 fi
