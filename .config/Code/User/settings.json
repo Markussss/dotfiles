@@ -4,17 +4,7 @@
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingOvertype": "always",
     "editor.cursorBlinking": "blink",
-    "editor.cursorStyle": "line",
-    "auto-close-tag.enableAutoCloseSelfClosingTag": false,
-    "window.zoomLevel": 0,
     "files.trimTrailingWhitespace": true,
-    "indentRainbow.colors": [
-        "rgba(113,  82, 176, 0.03)", // 7152b0
-        "rgba(149,  66, 185, 0.03)", // 9542b9
-        "rgba( 66, 185, 131, 0.03)", // 42B983
-        "rgba(148,  15, 153, 0.03)", // 940f99
-        "rgba(214, 173, 214, 0.03)", // d6add6
-    ],
     "search.useIgnoreFiles": true,
     "merge-conflict.codeLens.enabled": true,
     "merge-conflict.decorators.enabled": true,
@@ -22,8 +12,6 @@
     "editor.rulers": [
         120
     ],
-    "phpmd.rules": "/home/markus/phpmessdetector.xml",
-    "phpcs.enable": true,
     "editor.copyWithSyntaxHighlighting": false,
     "editor.lineHeight": 26,
     "editor.renderLineHighlight": "all",
@@ -45,12 +33,10 @@
     "editor.suggest.shareSuggestSelections": true,
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "editor.quickSuggestionsDelay": 0,
-    "editor.suggest.maxVisibleSuggestions": 15,
     "files.autoGuessEncoding": true,
     "files.defaultLanguage": "markdown",
     "files.hotExit": "onExitAndWindowClose",
     "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
     "workbench.enableExperiments": false,
     "workbench.sideBar.location": "right",
     "workbench.tree.renderIndentGuides": "always",
@@ -70,10 +56,8 @@
     },
     "search.searchOnTypeDebouncePeriod": 0,
     "search.showLineNumbers": true,
-    "search.useIgnoreFiles": false,
     "debug.console.fontSize": 16,
     "debug.console.lineHeight": 26,
-    "scm.alwaysShowProviders": true,
     "scm.alwaysShowActions": true,
     "scm.countBadge": "off",
     "terminal.explorerKind": "external",
@@ -86,10 +70,6 @@
     "telemetry.enableCrashReporter": false,
     "php.suggest.basic": false,
     "php.validate.enable": false,
-    "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\\\|;:'\\\",.<>/?",
-    "workbench.colorTheme": "Huacat Pink Theme",
-    "php-docblocker.returnGap": true,
-    "php-docblocker.qualifyClassNames": true,
     "files.associations": {
         "*.php":"php"
     },
@@ -99,28 +79,14 @@
         "vue"
       ],
     "vetur.validation.template": false,
-<<<<<<< Updated upstream
     "vetur.experimental.templateInterpolationService": true,
     "javascript.implicitProjectConfig.checkJs": false,
-    "namespaceResolver.autoSort": false,
-    "namespaceResolver.sortOnSave": false,
-    "namespaceResolver.sortAlphabetically": true,
-    "window.zoomLevel": 1,
-}
-=======
     "workbench.colorTheme": "Kary Pro Colors － Light",
-    "yaml.schemas": {
-        "file:///Users/markus/.vscode/extensions/atlassian.atlascode-2.5.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
-    },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
-    "editor.quickSuggestions": true,
-    "php.validate.enable": false,
     "emmet.excludeLanguages": [
         "markdown",
         "php"
     ],
-    "editor.tabSize": 2
 }
->>>>>>> Stashed changes
