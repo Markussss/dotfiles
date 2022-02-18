@@ -8,37 +8,27 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin"
-
-alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
-alias minecraft="/home/markus/Minecraft/Minecraft &"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin:$HOME/node_modules/.bin"
+export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+export HOMEBREW_NO_ANALYTICS=1
 
-# Improve history
-shopt -s histappend
-export HISTSIZE=100000
-export HISTFILESIZE=100000
-#export HISTCONTROL=ignoreboth
-export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+alias gits='git'
+alias guit='git'
+alias phpstan='docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan analyse -l 6'
+alias psysh='docker run -v $(pwd):/app --rm -it ricc/psysh'
+alias gt='git'
+alias storm='phpstorm'
+alias killwine='ps aux | grep "\.exe" | tr -s " " | cut -d " " -f 2 | xargs kill &> /dev/null'
+alias killteams='ps aux | grep "msteams" | tr -s " " | cut -d " " -f 2 | xargs kill &> /dev/null'
+alias minecraft='/home/markus/Minecraft/Minecraft &'
 
 # User specific aliases and functions
 alias clip="xclip -selection c"
 
-alias refreshdocker="docker-compose up --build db web proxy tools"
-alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
-alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
-alias redis="docker exec -it aunivers_cache_1 redis-cli -n 1"
-alias refresh="console cache:clear && rm -rf vendor/ && composer install && console doctrine:schema:update --force"
-alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
-alias blog="cd ~/Sites/blog"
-alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
-alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
-alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
-alias composer="php -d memory_limit=-1 `which composer`"
-alias codecept="php vendor/codeception/codeception/codecept"
+alias composer="php -d memory_limit=-1 /usr/local/bin/composer"
 alias governor="cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
@@ -46,51 +36,14 @@ alias gbg="git bisect good"
 alias gbb="git bisect bad"
 
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
-alias cd..="cd .."
-alias cd.="cd .."
 
 alias clear="clear && clear"
-alias screenrec="ffmpeg -video_size 1920x1080 -framerate 120 -f x11grab -i :0.0 -f pulse -i default -c:v libx264 -crf 0 -preset ultrafast /home/markus/Videos/Recordings/$(date +\"%Y-%m-%d_%H:%M:%S\").mkv"
-alias recscreen="screenrec"
-alias ripme="java -jar ~/ripme/ripme.jar"
 alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C display)"
-alias jadd="jotta-cli add"
-alias jstat="jotta-cli status"
-alias jscan="jotta-cli scan"
-alias jtail="jotta-cli tail"
 alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
+alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git -R"
 
-function vpn() {
-  if [ $1 == "connect" ]; then
-    nordvpnteams disconnect
-    sleep 2
-    nordvpnteams connect aschehoug-undervisning-4DkitRSQ
-  else
-    nordvpnteams disconnect
-  fi
-}
-
-function assets() {
-  if [ $1 == "restart" ]; then
-    docker-compose restart assets
-  else
-    docker exec -it aunivers_assets_1 yarn $@
-  fi
-}
-
-function docker-nginx() {
-  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
-}
-
-function wt () {
-	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
-}
-
-function instagram-dl () {
-  ripme -u https://www.instagram.com/$1
-}
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -114,8 +67,137 @@ source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
 
+
+# Improve history
+# shopt -s histappend
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+
+function api() {
+  if [ $1 == "cache:clear" ]; then
+    docker exec -it api_web rm -rf var/cache/dev
+    docker exec -it api_web ./bin/console --no-debug cache:clear
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-metadata
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-collection-region
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-entity-region
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-metadata
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-query
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-query-region
+    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-result
+  elif [ $1 == "update" ]; then
+    docker exec -it api_web ./bin/console --no-debug doctrine:schema:update --force
+  elif [ $1 == "migration" ]; then
+    docker exec -it api_web ./bin/console --no-debug doctrine:migration:diff
+  elif [ $1 == "migrate" ]; then
+    docker exec -it api_web ./bin/console --no-debug doctrine:migrations:migrate
+  elif [ $1 == "unmigrate" ]; then
+    docker exec -it api_web ./bin/console --no-debug doctrine:migrations:migrate prev
+  elif [ $1 == "mysql" ]; then
+    docker exec -it api_db mysql -uroot -ptest api
+  elif [ $1 == "sql" ]; then
+    docker exec -it api_web ./bin/console --no-debug doctrine:query:sql "$2"
+  elif [ $1 == "empty" ]; then
+    api sql "delete from planner_plan_week_resource where 1; \
+             delete from planner_yearplan_subject where 1; \
+             delete from planner_yearplan_grade where 1; \
+             delete from planner_day_resource where 1; \
+             delete from planner_plan_subject where 1; \
+             delete from planner_plan_grade where 1; \
+             delete from planner_resource where 1; \
+             delete from planner_member where 1; \
+             delete from planner_day where 1; \
+             delete from planner_week where 1; \
+             delete from planner_plan where 1; \
+             delete from planner_yearplan where 1;"
+  elif [ $1 == "composer" ]; then
+    docker exec -it api_web $@
+  elif [ $1 == "reset" ]; then
+    docker exec -it api_db mysql -uroot -ptest -e 'drop database api' \
+      && docker exec -it api_db mysql -uroot -ptest -e 'create database api' \
+      && docker exec -i api_db mysql -uroot -ptest api < ~/api-test.sql \
+      && api cache:clear
+  else
+    docker exec -it api_web ./bin/console --no-debug $@
+  fi
+}
+
+function assets() {
+  if [ $1 == "restart" ]; then
+    docker-compose restart assets
+  elif [ $1 == "tail" ]; then
+    docker logs --follow ibexa_assets
+  elif [ $1 == "yarn" ] && [ $2 != "encore" ]; then
+    docker exec -it ibexa_assets $@ \
+    && sudo /usr/bin/chown markus:markus node_modules/ -R \
+    && $@ \
+    && sudo /usr/bin/chown 33:docker-nginx node_modules/ -R
+  else
+    docker exec -it ibexa_assets $@
+  fi
+}
+
+function cache() {
+  if [ $# -eq 0 ]; then
+    docker-compose exec cache redis-cli
+  elif [ $1 == "restart" ]; then
+    docker-compose restart cache
+  else
+    docker-compose exec cache $@
+  fi
+}
+
+function web() {
+  if [ $1 == "restart" ]; then
+    docker-compose restart web
+  elif [ $1 == "ssl" ]; then
+    docker exec -it ibexa_web sudo rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt  || true \
+    && docker exec -it ibexa_web sudo update-ca-certificates
+  else
+    docker exec -it ibexa_web $@
+  fi
+}
+
+function docker-nginx() {
+  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
+}
+
+function wt () {
+	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
+}
+
+function compose-up() {
+  yq e -i 'del(.services.web.ports)' docker-compose-nginx.yml \
+    && yq e -i 'del(.services.proxy)' docker-compose-nginx.yml \
+    && yq e -i 'del(.services.nginx.ports)' docker-compose-nginx.yml \
+    && ( sleep 5 && git checkout -- docker-compose-nginx.yml &) \
+    && docker-nginx up "$@"
+}
+
+function d-c() {
+  yq e -i 'del(.services.web.ports)' docker-compose-nginx.yml \
+    && yq e -i 'del(.services.nginx.ports)' docker-compose-nginx.yml \
+    && yq e -i 'del(.services.proxy.ports)' docker-compose-nginx.yml \
+    && docker-compose "$@" \
+    && git checkout -- docker-compose.yml docker-compose-nginx.yml
+}
+
+function doc-com() {
+  yq e -i 'del(.services.web.ports)' docker-compose.yml \
+    && docker-compose -f docker-compose.override.yml "$@"
+}
+
+doc-com-no-https() {
+  yq e -i 'del(.services.web.ports)' docker-compose.yml \
+    && yq e -i 'del(.services.nginx.ports)' docker-compose.yml \
+    && ( sleep 5 && git checkout -- docker-compose.yml &) \
+    && docker-compose \
+      -f docker-compose.yml -f \
+      ../docker-compose-override-aunivers/docker-compose-no-https.override.yml \
+      "$@"
+}
+
 function rg() {
-  /usr/bin/rg -p $@ | ~/bin/link_to_file.sh
+  /usr/bin/rg -p "$@" | ~/bin/link_to_file.sh
 }
 
 function cacheclear() {
@@ -127,6 +209,9 @@ function cacheclear() {
 }
 
 function console() {
+    test -f docker-compose-nginx.yml && \
+        docker-compose -f docker-compose-nginx.yml exec web bin/console $@ && \
+        return 0
     test -f console.sh && ./console.sh $@ && return 0
     test -f app/console && app/console $@ && return 0
     test -f bin/console && bin/console $@ && return 0
@@ -146,7 +231,7 @@ function migration() {
     fi
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
     BRANCH=${BRANCH#feature/*}
-    console kaliop:migration:generate --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
+    web bin/console kaliop:migration:generate --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
 }
 
 function unmigrate() {
@@ -154,18 +239,18 @@ function unmigrate() {
         echo "need a migration to unmigrate"
         return 1
     fi
-  console kaliop:migration:migration $1 --delete
+  web bin/console kaliop:migration:migration $1 --delete
 }
 
 function migrate() {
-    console kaliop:migration:migrate
+    web bin/console kaliop:migration:migrate
 }
 
 function restoresnap() {
     echo "DROP DATABASE aunivers; CREATE DATABASE aunivers;" &&
     docker exec -i aunivers_db_1 mysql -uroot aunivers -e 'DROP DATABASE aunivers; CREATE DATABASE aunivers;' &&
-    echo "pv aunivers-stage.sql | mysql -uroot aunivers" &&
-    pv -petr ../aunivers-stage.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
+    echo "pv aunivers-test.sql | mysql -uroot aunivers" &&
+    pv -petr ../aunivers-test.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
     echo "console cache:clear" &&
     docker exec -it aunivers_web_1 bin/console cache:clear &&
     echo "console cache:pool:clear cache.redis" &&
@@ -203,7 +288,7 @@ fi
 
 # Set default editor to vim
 export EDITOR="vim"
-export EXTERNAL_EDITOR="storm"
+export EXTERNAL_EDITOR="code"
 
 # eval "$(symfony-autocomplete)"
 

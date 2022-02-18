@@ -9,11 +9,7 @@
     "editor.selectionClipboard": false,
     "editor.showFoldingControls": "always",
     "editor.tabCompletion": "on",
-    "editor.tabSize": 2,
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 120,
-    "editor.wrappingIndent": "indent",
-    "editor.cursorSurroundingLines": 5,
+    "editor.cursorSurroundingLines": 3,
     "editor.cursorStyle": "line-thin",
     "editor.formatOnPaste": false,
     "editor.formatOnSave": false,
@@ -24,7 +20,6 @@
     "editor.suggest.shareSuggestSelections": true,
     "editor.suggestSelection": "recentlyUsedByPrefix",
     "editor.quickSuggestionsDelay": 0,
-    "editor.suggest.maxVisibleSuggestions": 15,
     "files.autoGuessEncoding": true,
     "files.defaultLanguage": "markdown",
     "files.hotExit": "onExitAndWindowClose",
@@ -52,12 +47,10 @@
     "search.useIgnoreFiles": false,
     "debug.console.fontSize": 16,
     "debug.console.lineHeight": 26,
-    "scm.alwaysShowProviders": true,
     "scm.alwaysShowActions": true,
     "scm.countBadge": "off",
     "terminal.explorerKind": "external",
     "terminal.external.linuxExec": "gnome-terminal",
-    "terminal.external.osxExec": "iTerm2.app",
     "problems.showCurrentInStatus": true,
     "comments.openPanel": "neverOpen",
     "update.mode": "manual",
@@ -66,7 +59,10 @@
     "php.suggest.basic": false,
     "php.validate.enable": false,
     "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\\\|;:'\\\",.<>/?",
-    "workbench.colorTheme": "Huacat Pink Theme",
+    "workbench.colorTheme": "Nord Light",
+    "workbench.colorCustomizations": {
+        // "editor.background": "#fff2ff"
+    },
     "php-docblocker.returnGap": true,
     "php-docblocker.qualifyClassNames": true,
     "files.associations": {
@@ -79,9 +75,36 @@
       ],
     "vetur.validation.template": false,
     "vetur.experimental.templateInterpolationService": true,
-    "javascript.implicitProjectConfig.checkJs": false,
+    "js/ts.implicitProjectConfig.checkJs": false,
     "namespaceResolver.autoSort": false,
     "namespaceResolver.sortOnSave": false,
     "namespaceResolver.sortAlphabetically": true,
-    "window.zoomLevel": 1,
+    "workbench.editor.decorations.badges": false,
+    "workbench.editor.decorations.colors": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
+    "[php]": {
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
+        "editor.tabSize": 4
+    },
+    "[vue]": {
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
+        "editor.tabSize": 2
+    },
+    "[js]": {
+        "gitlens.codeLens.scopes": [
+            "document"
+        ],
+        "editor.tabSize": 2
+    },
+    "editor.tabSize": 2,
+    "twig-language-2.tabSize": 4,
+    "redhat.telemetry.enabled": false,
+    "diffEditor.ignoreTrimWhitespace": false
 }
