@@ -3,6 +3,14 @@
     "editor.accessibilitySupport": "off",
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingOvertype": "always",
+    "editor.cursorBlinking": "blink",
+    "files.trimTrailingWhitespace": true,
+    "search.useIgnoreFiles": true,
+    "merge-conflict.codeLens.enabled": true,
+    "merge-conflict.decorators.enabled": true,
+    "editor.rulers": [
+        120
+    ],
     "editor.copyWithSyntaxHighlighting": false,
     "editor.lineHeight": 26,
     "editor.renderLineHighlight": "all",
@@ -24,7 +32,6 @@
     "files.defaultLanguage": "markdown",
     "files.hotExit": "onExitAndWindowClose",
     "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
     "workbench.enableExperiments": false,
     "workbench.sideBar.location": "right",
     "workbench.tree.renderIndentGuides": "always",
@@ -44,7 +51,6 @@
     },
     "search.searchOnTypeDebouncePeriod": 0,
     "search.showLineNumbers": true,
-    "search.useIgnoreFiles": false,
     "debug.console.fontSize": 16,
     "debug.console.lineHeight": 26,
     "scm.alwaysShowActions": true,
@@ -54,8 +60,9 @@
     "problems.showCurrentInStatus": true,
     "comments.openPanel": "neverOpen",
     "update.mode": "manual",
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
+    "telemetry.telemetryLevel": "off",
+    "telemetry.enableTelemetry": false, // deprecated in favor of "telemetry.telemetryLevel": "off", but let's keep them turned to false, just in case they decide to do a switcheroo
+    "telemetry.enableCrashReporter": false, // deprecated in favor of "telemetry.telemetryLevel": "off", but let's keep them turned to false, just in case they decide to do a switcheroo
     "php.suggest.basic": false,
     "php.validate.enable": false,
     "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\\\|;:'\\\",.<>/?",
@@ -106,5 +113,6 @@
     "editor.tabSize": 2,
     "twig-language-2.tabSize": 4,
     "redhat.telemetry.enabled": false,
-    "diffEditor.ignoreTrimWhitespace": false
+    "diffEditor.ignoreTrimWhitespace": false,
+    "window.zoomLevel": 1
 }
