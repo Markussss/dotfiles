@@ -58,4 +58,26 @@
     "command": "deleteRight",
     "when": "textInputFocus"
   },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveAs"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "-workbench.action.files.saveAs"
+  },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveLocalFile",
+    "when": "remoteFileDialogVisible"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "-workbench.action.files.saveLocalFile",
+    "when": "remoteFileDialogVisible"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "eslint.executeAutofix"
+  },
 ]

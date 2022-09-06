@@ -42,7 +42,7 @@ alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C
 alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
-alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git -R"
+# alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git .idea node_modules assets -R"
 
 alias chattr='chattr -V'
 alias chmod='chmod -v'
@@ -72,6 +72,12 @@ alias sudo='sudo '
 # shopt -s histappend
 export HISTSIZE=100000
 export HISTFILESIZE=100000
+
+function fixpermissions() {
+  sudo chown markus-in-docker:docker-nginx . -R && \
+  sudo chown markus:markus .git/ .idea/ node_modules/ -R && \
+  sudo chmod -R 775 . -R
+}
 
 function api() {
   if [ $1 == "cache:clear" ]; then
@@ -110,7 +116,10 @@ function api() {
              delete from planner_plan where 1; \
              delete from planner_yearplan where 1;"
   elif [ $1 == "composer" ]; then
-    docker exec -it api_web $@
+    docker exec -it api_web $@ \
+      && sudo /usr/bin/chown markus:markus vendor/ -R \
+      && $@ \
+      && sudo /usr/bin/chown 33:docker-nginx vendor/ -R
   elif [ $1 == "reset" ]; then
     docker exec -it api_db mysql -uroot -ptest -e 'drop database api' \
       && docker exec -it api_db mysql -uroot -ptest -e 'create database api' \
@@ -152,6 +161,8 @@ function web() {
   elif [ $1 == "ssl" ]; then
     docker exec -it ibexa_web sudo rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt  || true \
     && docker exec -it ibexa_web sudo update-ca-certificates
+  elif [ $1 == "migration" ]; then
+    web bin/console --no-debug ibexa:migrations:generate --type=content_type --mode=update --match-property=content_type_identifier --value=$2
   else
     docker exec -it ibexa_web $@
   fi
@@ -209,19 +220,7 @@ function cacheclear() {
 }
 
 function console() {
-    test -f docker-compose-nginx.yml && \
-        docker-compose -f docker-compose-nginx.yml exec web bin/console $@ && \
-        return 0
-    test -f console.sh && ./console.sh $@ && return 0
-    test -f app/console && app/console $@ && return 0
-    test -f bin/console && bin/console $@ && return 0
-    if [ $(pwd) == "/" ]; then
-        echo "found no console"
-        return 1
-    else
-        (cd .. && console $@)
-        return 0
-    fi
+    web bin/console --no-debug $@
 }
 
 function migration() {
@@ -231,7 +230,7 @@ function migration() {
     fi
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
     BRANCH=${BRANCH#feature/*}
-    web bin/console kaliop:migration:generate --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
+    web bin/console app:migration --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
 }
 
 function unmigrate() {
@@ -243,18 +242,16 @@ function unmigrate() {
 }
 
 function migrate() {
-    web bin/console kaliop:migration:migrate
+    web bin/console ibexa:migrations:migrate
 }
 
 function restoresnap() {
-    echo "DROP DATABASE aunivers; CREATE DATABASE aunivers;" &&
-    docker exec -i aunivers_db_1 mysql -uroot aunivers -e 'DROP DATABASE aunivers; CREATE DATABASE aunivers;' &&
-    echo "pv aunivers-test.sql | mysql -uroot aunivers" &&
-    pv -petr ../aunivers-test.sql | docker exec -i aunivers_db_1 mysql -uroot aunivers &&
+    echo "DROP DATABASE ibexa; CREATE DATABASE ibexa;" &&
+    docker exec -i ibexa_db mysql -uroot ibexa -e 'DROP DATABASE ibexa; CREATE DATABASE ibexa;' &&
+    echo "pv aunivers-prod.sql | mysql -uroot ibexa" &&
+    pv -petr ../aunivers-prod.sql | docker exec -i ibexa_db mysql -uroot ibexa &&
     echo "console cache:clear" &&
-    docker exec -it aunivers_web_1 bin/console cache:clear &&
-    echo "console cache:pool:clear cache.redis" &&
-    docker exec -it aunivers_web_1 bin/console cache:pool:clear cache.redis
+    console cache:clear
 }
 
 function fixtures() {
@@ -383,3 +380,5 @@ fi
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
