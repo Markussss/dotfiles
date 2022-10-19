@@ -230,7 +230,7 @@ function migration() {
     fi
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
     BRANCH=${BRANCH#feature/*}
-    web bin/console app:migration --type=content_type --mode=update --match-type=identifier --match-value=$1 AppBundle $BRANCH
+    web bin/console --no-debug ibexa:migrations:generate --type content_type --mode update --match-property content_type_identifier --value=$1
 }
 
 function unmigrate() {
@@ -238,18 +238,18 @@ function unmigrate() {
         echo "need a migration to unmigrate"
         return 1
     fi
-  web bin/console kaliop:migration:migration $1 --delete
+  web bin/console --no-debug kaliop:migration:migration $1 --delete
 }
 
 function migrate() {
-    web bin/console ibexa:migrations:migrate
+    web bin/console --no-debug ibexa:migrations:migrate
 }
 
 function restoresnap() {
     echo "DROP DATABASE ibexa; CREATE DATABASE ibexa;" &&
     docker exec -i ibexa_db mysql -uroot ibexa -e 'DROP DATABASE ibexa; CREATE DATABASE ibexa;' &&
-    echo "pv aunivers-prod.sql | mysql -uroot ibexa" &&
-    pv -petr ../aunivers-prod.sql | docker exec -i ibexa_db mysql -uroot ibexa &&
+    echo "pv aunivers-test.sql | mysql -uroot ibexa" &&
+    pv -petr ../aunivers-test.sql | docker exec -i ibexa_db mysql -uroot ibexa &&
     echo "console cache:clear" &&
     console cache:clear
 }
@@ -268,14 +268,11 @@ function new() {
 }
 
 function rgopen () {
-  rg --color never "$1" | grep "$2"  | awk 1 ORS=' ' | sed "s/^/$EXTERNAL_EDITOR /g" | bash
+  /usr/bin/rg -l --color never "$@" | awk 1 ORS=' ' | sed "s/^/$EXTERNAL_EDITOR /g" | bash
 }
 
 function fixconflicts () {
-  TEMP_EXTERNAL_EDITOR=$EXTERNAL_EDITOR
-  EXTERNAL_EDITOR='code'
   rgopen "<<<<" "\."
-  EXTERNAL_EDITOR=$TEMP_EXTERNAL_EDITOR
 }
 
 function vpnconnect () {
