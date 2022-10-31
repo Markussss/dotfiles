@@ -130,7 +130,7 @@
     "vetur.underline.refValue": false,
     "vetur.validation.style": false,
     "vetur.validation.templateProps": true,
-    "workbench.colorTheme": "Default Light+",
+    "workbench.colorTheme": "Kary Pro Colors － Light",
     "editor.inlineSuggest.enabled": true,
     "git.mergeEditor": false,
     "github.copilot.enable": {
@@ -138,5 +138,17 @@
         "yaml": false,
         "plaintext": false,
         "markdown": false
-    }
+    },
+
+    "editor.tokenColorCustomizations": {
+        "[Kary Pro Colors － Light]": {
+            "comments": "#d6add6",
+            "functions": "#940f99",
+            "keywords": "#7152b0",
+            "numbers": "#42B983",
+            "strings": "#9542b9",
+            "types": "#512582",
+            "variables": "#b9427b"
+        }
+    },
 }
