@@ -15,6 +15,10 @@ export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export HOMEBREW_NO_ANALYTICS=1
 
+# Set default editor to vim
+export EDITOR="vim"
+export EXTERNAL_EDITOR="code"
+
 alias gits='git'
 alias guit='git'
 alias phpstan='docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan analyse -l 6'
@@ -37,7 +41,6 @@ alias gbb="git bisect bad"
 
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 
-alias clear="clear && clear"
 alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C display)"
 alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
 alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
@@ -130,21 +133,6 @@ function api() {
   fi
 }
 
-function assets() {
-  if [ $1 == "restart" ]; then
-    docker-compose restart assets
-  elif [ $1 == "tail" ]; then
-    docker logs --follow ibexa_assets
-  elif [ $1 == "yarn" ] && [ $2 != "encore" ]; then
-    docker exec -it ibexa_assets $@ \
-    && sudo /usr/bin/chown markus:markus node_modules/ -R \
-    && $@ \
-    && sudo /usr/bin/chown 33:docker-nginx node_modules/ -R
-  else
-    docker exec -it ibexa_assets $@
-  fi
-}
-
 function cache() {
   if [ $# -eq 0 ]; then
     docker-compose exec cache redis-cli
@@ -158,87 +146,13 @@ function cache() {
 function web() {
   if [ $1 == "restart" ]; then
     docker-compose restart web
-  elif [ $1 == "ssl" ]; then
-    docker exec -it ibexa_web sudo rm /usr/share/ca-certificates/mozilla/DST_Root_CA_X3.crt  || true \
-    && docker exec -it ibexa_web sudo update-ca-certificates
-  elif [ $1 == "migration" ]; then
-    web bin/console --no-debug ibexa:migrations:generate --type=content_type --mode=update --match-property=content_type_identifier --value=$2
   else
     docker exec -it ibexa_web $@
   fi
 }
 
-function docker-nginx() {
-  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
-}
-
-function wt () {
-	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
-}
-
-function compose-up() {
-  yq e -i 'del(.services.web.ports)' docker-compose-nginx.yml \
-    && yq e -i 'del(.services.proxy)' docker-compose-nginx.yml \
-    && yq e -i 'del(.services.nginx.ports)' docker-compose-nginx.yml \
-    && ( sleep 5 && git checkout -- docker-compose-nginx.yml &) \
-    && docker-nginx up "$@"
-}
-
-function d-c() {
-  yq e -i 'del(.services.web.ports)' docker-compose-nginx.yml \
-    && yq e -i 'del(.services.nginx.ports)' docker-compose-nginx.yml \
-    && yq e -i 'del(.services.proxy.ports)' docker-compose-nginx.yml \
-    && docker-compose "$@" \
-    && git checkout -- docker-compose.yml docker-compose-nginx.yml
-}
-
-function doc-com() {
-  yq e -i 'del(.services.web.ports)' docker-compose.yml \
-    && docker-compose -f docker-compose.override.yml "$@"
-}
-
-doc-com-no-https() {
-  yq e -i 'del(.services.web.ports)' docker-compose.yml \
-    && yq e -i 'del(.services.nginx.ports)' docker-compose.yml \
-    && ( sleep 5 && git checkout -- docker-compose.yml &) \
-    && docker-compose \
-      -f docker-compose.yml -f \
-      ../docker-compose-override-aunivers/docker-compose-no-https.override.yml \
-      "$@"
-}
-
-function rg() {
-  /usr/bin/rg -p "$@" | ~/bin/link_to_file.sh
-}
-
-function cacheclear() {
-    while true; do
-        console cache:clear
-        osascript -e 'display notification "cleared cache!"'
-        sleep 300
-    done
-}
-
 function console() {
     web bin/console --no-debug $@
-}
-
-function migration() {
-    if [ -z "$1" ]; then
-        echo "need a content type identifier to match against"
-        return 1
-    fi
-    BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    BRANCH=${BRANCH#feature/*}
-    web bin/console --no-debug ibexa:migrations:generate --type content_type --mode update --match-property content_type_identifier --value=$1
-}
-
-function unmigrate() {
-    if [ -z "$1" ]; then
-        echo "need a migration to unmigrate"
-        return 1
-    fi
-  web bin/console --no-debug kaliop:migration:migration $1 --delete
 }
 
 function migrate() {
@@ -252,6 +166,14 @@ function restoresnap() {
     pv -petr ../aunivers-test.sql | docker exec -i ibexa_db mysql -uroot ibexa &&
     echo "console cache:clear" &&
     console cache:clear
+}
+
+function wt () {
+	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
+}
+
+function rg() {
+  /usr/bin/rg -p "$@" | ~/bin/link_to_file.sh
 }
 
 function fixtures() {
@@ -272,34 +194,14 @@ function rgopen () {
 }
 
 function fixconflicts () {
-  rgopen "<<<<" "\."
+  rgopen "<<<<"
 }
 
-function vpnconnect () {
-  nordvpnteams disconnect
-  sudo chattr -i /etc/resolv.conf
-  sudo su -c 'echo -e "nameserver 103.86.96.100\\nnameserver 103.86.99.100" > /etc/resolv.conf'
-  sudo chattr +i /etc/resolv.conf
-  cat /etc/resolv.conf
-  nordvpnteams connect $1
-}
-
-function vpndisconnect () {
-  sudo chattr -i /etc/resolv.conf
-  sudo su -c 'echo -e "search home\\nnameserver 92.220.228.70\\nnameserver 109.247.114.4" > /etc/resolv.conf'
-  sudo chattr +i /etc/resolv.conf
-  cat /etc/resolv.conf
-  nordvpnteams disconnect
-}
+### End personal functions -------------------------------------------------------------------------
 
 if [ -f pipenv ]; then
   eval "$(pipenv --completion)"
 fi
-
-
-# Set default editor to vim
-export EDITOR="vim"
-export EXTERNAL_EDITOR="code"
 
 # eval "$(symfony-autocomplete)"
 
