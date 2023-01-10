@@ -130,7 +130,6 @@
     "vetur.underline.refValue": false,
     "vetur.validation.style": false,
     "vetur.validation.templateProps": true,
-    "workbench.colorTheme": "Kary Pro Colors － Light",
     "editor.inlineSuggest.enabled": true,
     "git.mergeEditor": false,
     "github.copilot.enable": {
@@ -153,4 +152,6 @@
     },
     "volar.autoCompleteRefs": true,
     "volar.codeLens.scriptSetupTools": true,
+    "emmet.showExpandedAbbreviation": "never",
+    "workbench.colorTheme": "Kary Pro Colors － Light",
 }
