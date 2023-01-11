@@ -77,6 +77,10 @@ alias sudo='sudo '
 export HISTSIZE=100000
 export HISTFILESIZE=100000
 
+function docker-compose() {
+  docker compose $@
+}
+
 function fixpermissions() {
   sudo chown markus-in-docker:docker-nginx . -R && \
   sudo chown markus:markus .git/ .idea/ node_modules/ -R && \
