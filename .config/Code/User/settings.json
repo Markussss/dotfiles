@@ -18,7 +18,10 @@
     "editor.selectionClipboard": false,
     "editor.showFoldingControls": "always",
     "editor.tabCompletion": "on",
-    "editor.cursorSurroundingLines": 3,
+    "editor.tabSize": 2,
+    "editor.wordWrap": "bounded",
+    "editor.wordWrapColumn": 120,
+    "editor.cursorSurroundingLines": 5,
     "editor.cursorStyle": "line-thin",
     "editor.formatOnPaste": false,
     "editor.formatOnSave": false,
@@ -154,4 +157,12 @@
     "volar.codeLens.scriptSetupTools": true,
     "emmet.showExpandedAbbreviation": "never",
     "workbench.colorTheme": "Kary Pro Colors － Light",
+    "emmet.excludeLanguages": [
+        "markdown",
+        "php"
+    ],
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.inlineSuggest.enabled": true,
+    "npm.keybindingsChangedWarningShown": true,
+    "editor.unicodeHighlight.ambiguousCharacters": false,
 }

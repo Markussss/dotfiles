@@ -10,10 +10,14 @@ fi
 
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.npm/bin:$HOME/node_modules/.bin"
 export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags:$HOME/.local/bin:/home/linuxbrew/.linuxbrew/bin"
+alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
+alias minecraft="/home/markus/Minecraft/Minecraft &"
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/.config/composer/vendor/bin:$HOME/.phpctags"
+export PATH="$PATH:$HOME/.npm/bin"
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 export HOMEBREW_NO_ANALYTICS=1
+export GJS_PATH=~/.local/share/gnome-shell/extensions/nice-clock@yourusername/
 
 # Set default editor to vim
 export EDITOR="vim"
@@ -32,7 +36,17 @@ alias minecraft='/home/markus/Minecraft/Minecraft &'
 # User specific aliases and functions
 alias clip="xclip -selection c"
 
-alias composer="php -d memory_limit=-1 /usr/local/bin/composer"
+alias refreshdocker="docker-compose up --build db web proxy tools"
+alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
+alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
+alias redis="docker exec -it aunivers_cache_1 redis-cli -n 1"
+alias refresh="console cache:clear && rm -rf vendor/ && composer install && console doctrine:schema:update --force"
+alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
+alias blog="cd ~/Sites/blog"
+alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
+alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
+alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
+alias codecept="php vendor/codeception/codeception/codecept"
 alias governor="cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
@@ -48,6 +62,41 @@ alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
 # alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git .idea node_modules assets -R"
 
+function composer() {
+  echo "hardkod composer-pathen i composer-funksjonen eller aliaset, istedenfor å whiche den."
+  return
+  # alias composer="php -d memory_limit=-1 `which composer`"
+}
+
+function vpn() {
+  if [ $1 == "connect" ]; then
+    nordvpnteams disconnect
+    sleep 2
+    nordvpnteams connect aschehoug-undervisning-4DkitRSQ
+  else
+    nordvpnteams disconnect
+  fi
+}
+
+function assets() {
+  if [ $1 == "restart" ]; then
+    docker-compose restart assets
+  else
+    docker exec -it aunivers_assets_1 yarn $@
+  fi
+}
+
+function docker-nginx() {
+  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
+}
+
+function wt () {
+	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
+}
+
+function instagram-dl () {
+  ripme -u https://www.instagram.com/$1
+}
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -154,6 +203,12 @@ function web() {
   else
     docker exec -it ibexa_web $@
   fi
+function cacheclear() {
+    while true; do
+        console cache:clear
+        osascript -e 'display notification "cleared cache!"'
+        sleep 300
+    done
 }
 
 function console() {
@@ -286,3 +341,18 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+        . "/usr/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
