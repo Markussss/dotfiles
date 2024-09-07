@@ -5,6 +5,7 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# exit
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -20,8 +21,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export GJS_PATH=~/.local/share/gnome-shell/extensions/nice-clock@yourusername/
 
 # Set default editor to vim
-export EDITOR="vim"
-export EXTERNAL_EDITOR="code"
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 alias gits='git'
 alias guit='git'
@@ -35,7 +35,8 @@ alias minecraft='/home/markus/Minecraft/Minecraft &'
 
 # User specific aliases and functions
 alias clip="xclip -selection c"
-
+alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
+alias minecraft="/home/markus/Minecraft/Minecraft &"
 alias refreshdocker="docker-compose up --build db web proxy tools"
 alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
 alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
@@ -52,6 +53,7 @@ alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
 
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 
@@ -62,41 +64,6 @@ alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
 # alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git .idea node_modules assets -R"
 
-function composer() {
-  echo "hardkod composer-pathen i composer-funksjonen eller aliaset, istedenfor å whiche den."
-  return
-  # alias composer="php -d memory_limit=-1 `which composer`"
-}
-
-function vpn() {
-  if [ $1 == "connect" ]; then
-    nordvpnteams disconnect
-    sleep 2
-    nordvpnteams connect aschehoug-undervisning-4DkitRSQ
-  else
-    nordvpnteams disconnect
-  fi
-}
-
-function assets() {
-  if [ $1 == "restart" ]; then
-    docker-compose restart assets
-  else
-    docker exec -it aunivers_assets_1 yarn $@
-  fi
-}
-
-function docker-nginx() {
-  docker-compose -f docker-compose-nginx.yml -f docker-compose.override.yml $@
-}
-
-function wt () {
-	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
-}
-
-function instagram-dl () {
-  ripme -u https://www.instagram.com/$1
-}
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -135,74 +102,10 @@ function fixpermissions() {
   sudo chown markus:markus .git/ .idea/ node_modules/ -R && \
   sudo chmod -R 775 . -R
 }
-
-function api() {
-  if [ $1 == "cache:clear" ]; then
-    docker exec -it api_web rm -rf var/cache/dev
-    docker exec -it api_web ./bin/console --no-debug cache:clear
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-metadata
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-collection-region
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-entity-region
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-metadata
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-query
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-query-region
-    docker exec -it api_web ./bin/console --no-debug doctrine:cache:clear-result
-  elif [ $1 == "update" ]; then
-    docker exec -it api_web ./bin/console --no-debug doctrine:schema:update --force
-  elif [ $1 == "migration" ]; then
-    docker exec -it api_web ./bin/console --no-debug doctrine:migration:diff
-  elif [ $1 == "migrate" ]; then
-    docker exec -it api_web ./bin/console --no-debug doctrine:migrations:migrate
-  elif [ $1 == "unmigrate" ]; then
-    docker exec -it api_web ./bin/console --no-debug doctrine:migrations:migrate prev
-  elif [ $1 == "mysql" ]; then
-    docker exec -it api_db mysql -uroot -ptest api
-  elif [ $1 == "sql" ]; then
-    docker exec -it api_web ./bin/console --no-debug doctrine:query:sql "$2"
-  elif [ $1 == "empty" ]; then
-    api sql "delete from planner_plan_week_resource where 1; \
-             delete from planner_yearplan_subject where 1; \
-             delete from planner_yearplan_grade where 1; \
-             delete from planner_day_resource where 1; \
-             delete from planner_plan_subject where 1; \
-             delete from planner_plan_grade where 1; \
-             delete from planner_resource where 1; \
-             delete from planner_member where 1; \
-             delete from planner_day where 1; \
-             delete from planner_week where 1; \
-             delete from planner_plan where 1; \
-             delete from planner_yearplan where 1;"
-  elif [ $1 == "composer" ]; then
-    docker exec -it api_web $@ \
-      && sudo /usr/bin/chown markus:markus vendor/ -R \
-      && $@ \
-      && sudo /usr/bin/chown 33:docker-nginx vendor/ -R
-  elif [ $1 == "reset" ]; then
-    docker exec -it api_db mysql -uroot -ptest -e 'drop database api' \
-      && docker exec -it api_db mysql -uroot -ptest -e 'create database api' \
-      && docker exec -i api_db mysql -uroot -ptest api < ~/api-test.sql \
-      && api cache:clear
-  else
-    docker exec -it api_web ./bin/console --no-debug $@
-  fi
+function wt () {
+	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
 }
 
-function cache() {
-  if [ $# -eq 0 ]; then
-    docker-compose exec cache redis-cli
-  elif [ $1 == "restart" ]; then
-    docker-compose restart cache
-  else
-    docker-compose exec cache $@
-  fi
-}
-
-function web() {
-  if [ $1 == "restart" ]; then
-    docker-compose restart web
-  else
-    docker exec -it ibexa_web $@
-  fi
 function cacheclear() {
     while true; do
         console cache:clear
@@ -263,6 +166,11 @@ if [ -f pipenv ]; then
   eval "$(pipenv --completion)"
 fi
 
+
+# Set default editor to vim
+export EDITOR="vim"
+export EXTERNAL_EDITOR="code"
+
 # eval "$(symfony-autocomplete)"
 
 # If not running interactively, don't do anything
@@ -277,7 +185,6 @@ export BASH_IT="$HOME/.bash_it"
 # Lock and Load a custom theme file.
 # Leave empty to disable theming.
 # location /.bash_it/themes/
-#export BASH_IT_THEME='bobby'
 export BASH_IT_THEME='zork'
 
 # (Advanced): Change this to the name of your remote repo if you
@@ -285,44 +192,19 @@ export BASH_IT_THEME='zork'
 # export BASH_IT_REMOTE='bash-it'
 
 # Your place for hosting Git repos. I use this for private repos.
-export GIT_HOSTING='git@git.domain.com'
+unset GIT_HOSTING
 
 # Don't check mail when opening terminal.
 unset MAILCHECK
 
 # Change this to your console based IRC client of choice.
-export IRC_CLIENT='irssi'
+unset IRC_CLIENT
 
 # Set this to the command you use for todo.txt-cli
-export TODO="t"
+unset TODO
 
 # Set this to false to turn off version control status checking within the prompt for all themes
 export SCM_CHECK=true
-
-# Set Xterm/screen/Tmux title with only a short hostname.
-# Uncomment this (or set SHORT_HOSTNAME to something else),
-# Will otherwise fall back on $HOSTNAME.
-#export SHORT_HOSTNAME=$(hostname -s)
-
-# Set Xterm/screen/Tmux title with only a short username.
-# Uncomment this (or set SHORT_USER to something else),
-# Will otherwise fall back on $USER.
-#export SHORT_USER=${USER:0:8}
-
-# Set Xterm/screen/Tmux title with shortened command and directory.
-# Uncomment this to set.
-#export SHORT_TERM_LINE=true
-
-# Set vcprompt executable path for scm advance info in prompt (demula theme)
-# https://github.com/djl/vcprompt
-#export VCPROMPT_EXECUTABLE=~/.vcprompt/bin/vcprompt
-
-# (Advanced): Uncomment this to make Bash-it reload itself automatically
-# after enabling or disabling aliases, plugins, and completions.
-# export BASH_IT_AUTOMATIC_RELOAD_AFTER_CONFIG_CHANGE=1
-
-# Uncomment this to make Bash-it create alias reload.
-# export BASH_IT_RELOAD_LEGACY=1
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
@@ -356,3 +238,25 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Load pyenv automatically by appending
+# the following to
+# ~/.bash_profile if it exists, otherwise ~/.profile (for login shells)
+# and ~/.bashrc (for interactive shells) :
+# Here is the original snippet:
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init -)"
+PYENV_PATH=$(which pyenv)
+function pyenv() {
+  export PYENV_ROOT="$HOME/.pyenv"
+  [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+  if [ -z "$PYENV_INITIALIZED" ]; then
+    eval "$($PYENV_PATH init -)"
+    PYENV_INITIALIZED=1
+  fi
+  pyenv $@
+}
+
+# exit

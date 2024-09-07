@@ -19,8 +19,6 @@
     "editor.showFoldingControls": "always",
     "editor.tabCompletion": "on",
     "editor.tabSize": 2,
-    "editor.wordWrap": "bounded",
-    "editor.wordWrapColumn": 120,
     "editor.cursorSurroundingLines": 5,
     "editor.cursorStyle": "line-thin",
     "editor.formatOnPaste": false,
@@ -86,15 +84,12 @@
         "javascriptreact",
         "vue"
       ],
-    "js/ts.implicitProjectConfig.checkJs": false,
-    "namespaceResolver.autoSort": false,
-    "namespaceResolver.sortOnSave": false,
-    "namespaceResolver.sortAlphabetically": true,
-    "workbench.editor.decorations.badges": false,
-    "workbench.editor.decorations.colors": false,
-    "workbench.editor.highlightModifiedTabs": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter.notebook.ipynb"
+    "vetur.validation.template": false,
+    "vetur.experimental.templateInterpolationService": true,
+    "javascript.implicitProjectConfig.checkJs": false,
+    "workbench.colorTheme": "Kary Pro Colors － Light",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
     },
     "[php]": {
         "gitlens.codeLens.scopes": [
