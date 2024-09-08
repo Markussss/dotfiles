@@ -25,28 +25,14 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
 
 alias gits='git'
 alias guit='git'
+alias gt='git'
 alias phpstan='docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan analyse -l 6'
 alias psysh='docker run -v $(pwd):/app --rm -it ricc/psysh'
-alias gt='git'
-alias storm='phpstorm'
-alias killwine='ps aux | grep "\.exe" | tr -s " " | cut -d " " -f 2 | xargs kill &> /dev/null'
-alias killteams='ps aux | grep "msteams" | tr -s " " | cut -d " " -f 2 | xargs kill &> /dev/null'
 alias minecraft='/home/markus/Minecraft/Minecraft &'
-
-# User specific aliases and functions
 alias clip="xclip -selection c"
 alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
 alias minecraft="/home/markus/Minecraft/Minecraft &"
-alias refreshdocker="docker-compose up --build db web proxy tools"
-alias reloaddb="./tools.sh inv download-db --env=stage && ./tools.sh cp -f /tmp/aunivers-stage\:stage.sql . && mv -f ../aunivers-stage\:stage.sql ../aunivers-stage\:stage.sql.old && mv aunivers-stage\:stage.sql ../"
-alias hva="code /Users/markus/notater/hva-jeg-jobber-med.md"
-alias redis="docker exec -it aunivers_cache_1 redis-cli -n 1"
-alias refresh="console cache:clear && rm -rf vendor/ && composer install && console doctrine:schema:update --force"
-alias killphp="ps aux | grep php | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
-alias blog="cd ~/Sites/blog"
 alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
-alias seleniumchrome="java -jar -Dwebdriver.chrome.driver=/Users/markus/bin/chromedriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
-alias seleniumfirefox="java -jar -Dwebdriver.gecko.driver=/Users/markus/bin/geckodriver /Users/markus/bin/selenium-server-standalone-3.141.59.jar"
 alias codecept="php vendor/codeception/codeception/codecept"
 alias governor="cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
@@ -54,16 +40,9 @@ alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpuf
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
-
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
-
 alias brownnoise="play -c 2 --null synth brownnoise reverb bass 6 treble -3"
-alias checkdrivers="(sudo lspci -vnn | grep VGA -A 12) && (sudo lshw -numeric -C display)"
-alias micon="sudo su -c \"echo -n -e '\x02\x02' > /dev/hidraw0\""
-alias micoff="sudo su -c \"echo -n -e '\x02\x00' > /dev/hidraw0\""
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
-# alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git .idea node_modules assets -R"
-
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -86,7 +65,6 @@ alias clrg='clear && rg -i'
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
-
 
 # Improve history
 # shopt -s histappend
