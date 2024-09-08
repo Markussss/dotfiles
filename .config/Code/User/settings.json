@@ -95,7 +95,8 @@
         "gitlens.codeLens.scopes": [
             "document"
         ],
-        "editor.tabSize": 4
+        "editor.tabSize": 4,
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
     },
     "[vue]": {
         "gitlens.codeLens.scopes": [
@@ -160,4 +161,9 @@
     "editor.inlineSuggest.enabled": true,
     "npm.keybindingsChangedWarningShown": true,
     "editor.unicodeHighlight.ambiguousCharacters": false,
+    "blade.format.enable": true,
+    "[blade]": {
+        "editor.autoClosingBrackets": "always",
+        "editor.defaultFormatter": "onecentlin.laravel-blade",
+    },
 }
