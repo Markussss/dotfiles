@@ -1,0 +1,12 @@
+#!/bin/bash
+# git-ish: Outputs the latest commit hash, with optional clipboard copy
+
+commit_hash=$(git rev-parse HEAD)
+
+if [ "$1" == "clip" ]; then
+    echo -n "$commit_hash" | xclip -selection clipboard
+    echo "$commit_hash"
+else
+    echo "$commit_hash"
+fi
+
