@@ -192,3 +192,4 @@ source "$BASH_IT"/bash_it.sh
 if test -f .bashrc_extra; then
   source .bashrc_extra
 fi
+source "$HOME/.cargo/env"
