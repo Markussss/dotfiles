@@ -1,175 +1,102 @@
 // // Place your key bindings in this file to override the defaults
 [
-    {
-        "key": "ctrl+tab",
-        "command": "workbench.action.nextEditor"
-    },
-    {
-        "key": "ctrl+shift+tab",
-        "command": "workbench.action.previousEditor"
-    },
-    {
-        "key": "ctrl+shift+d",
-        "command": "editor.action.copyLinesDownAction"
-    },
-    {
-        "key": "cmd+shift+d",
-        "command": "editor.action.copyLinesDownAction"
-    },
-    {
-        "key": "ctrl+shift+f",
-        "command": ""
-    },
-    {
-        "key": "ctrl+t",
-        "command": ""
-    },
-    {
-        "key": "ctrl+alt+u",
-        "command": "editor.action.transformToUppercase",
-        "when": "editorTextFocus"
-    },{
-        "key": "ctrl+alt+l",
-        "command": "editor.action.transformToLowercase",
-        "when": "editorTextFocus"
-    },
-    // {
-    //     "key": "alt+left alt+left",
-    //     "command": "editor.fold",
-    //     "when": "editorTextFocus"
-    // }, {
-    //     "key": "alt+right alt+right",
-    //     "command": "editor.unfold",
-    //     "when": "editorTextFocus"
-    // },
-    {
-        "key": "ctrl+shift+'",
-        "command": "editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+shift+7",
-        "command": "-editor.action.commentLine",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+enter",
-        "command": "editor.emmet.action.expandAbbreviation",
-        "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !config.emmet.useNewEmmet && !editorHasMultipleSelections && !editorHasSelection && !editorReadonly && !editorTabMovesFocus"
-    },
-    {
-        "key": "tab",
-        "command": "-editor.emmet.action.expandAbbreviation",
-        "when": "config.emmet.triggerExpansionOnTab && editorTextFocus && !config.emmet.useNewEmmet && !editorHasMultipleSelections && !editorHasSelection && !editorReadonly && !editorTabMovesFocus"
-    },
-    {
-        "key": "alt+q",
-        "command": "extension.consoleWrapper",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "ctrl+shift+q",
-        "command": "-extension.consoleWrapper",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "ctrl+k ctrl+l",
-        "command": "workbench.action.splitEditor"
-    },
-    {
-        "key": "ctrl+[Equal]",
-        "command": "-workbench.action.splitEditor"
-    },
-    {
-        "key": "alt+s",
-        "command": "editor.action.insertSnippet"
-    },
-    {
-        "key": "shift+delete",
-        "command": "deleteRight"
-    },
-    {
-        "key": "ctrl+m",
-        "command": "-editor.action.toggleTabFocusMode"
-    },
-    {
-        "key": "alt+down",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+down",
-        "command": "-editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+up",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "alt+up",
-        "command": "-editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly"
-    },
-    {
-        "key": "ctrl+down",
-        "command": "scrollLineDown",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+pagedown",
-        "command": "-scrollLineDown",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+up",
-        "command": "scrollLineUp",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+pageup",
-        "command": "-scrollLineUp",
-        "when": "textInputFocus"
-    },
-    {
-        "key": "shift+cmd+up",
-        "command": "editor.action.insertCursorAbove",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "alt+cmd+up",
-        "command": "-editor.action.insertCursorAbove",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "shift+cmd+down",
-        "command": "editor.action.insertCursorBelow",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "alt+cmd+down",
-        "command": "-editor.action.insertCursorBelow",
-        "when": "editorTextFocus"
-    },
-    {
-        "key": "ctrl+shift+backspace",
-        "command": "deleteWordPartLeft",
-            "when": "textInputFocus && !editorReadonly" },
-    { "key": "ctrl+delete",           "command": "deleteWordPartRight",
-            "when": "textInputFocus && !editorReadonly"
-        },
-        {
-            "key": "ctrl+shift+s",
-            "command": "-workbench.action.files.saveAs"
-        },
-        {
-            "key": "ctrl+shift+s",
-            "command": "-workbench.action.files.saveLocalFile",
-            "when": "remoteFileDialogVisible"
-        },
-        {
-            "key": "ctrl+shift+s",
-            "command": "eslint.executeAutofix"
-        },
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.openNextRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "-workbench.action.quickOpenNavigateNextInEditorPicker",
+    "when": "inEditorsPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.nextEditor"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.openPreviousRecentlyUsedEditorInGroup"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "-workbench.action.quickOpenNavigatePreviousInEditorPicker",
+    "when": "inEditorsPicker && inQuickOpen"
+  },
+  {
+    "key": "ctrl+shift+tab",
+    "command": "workbench.action.previousEditor"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "-workbench.view.debug"
+  },
+  {
+    "key": "ctrl+shift+d",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+[Backslash]",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+7",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "alt+left alt+left",
+    "command": "editor.fold"
+  },
+  {
+    "key": "alt+right alt+right",
+    "command": "editor.unfold"
+  },
+  {
+    "key": "shift+delete",
+    "command": "deleteRight",
+    "when": "textInputFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveAs"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "-workbench.action.files.saveAs"
+  },
+  {
+    "key": "ctrl+shift+alt+s",
+    "command": "workbench.action.files.saveLocalFile",
+    "when": "remoteFileDialogVisible"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "-workbench.action.files.saveLocalFile",
+    "when": "remoteFileDialogVisible"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "eslint.executeAutofix"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-namespaceResolver.import",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+alt+0",
+    "command": "-editor.action.inlineEdit.jumpBack",
+    "when": "cursorAtInlineEdit && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+alt+0",
+    "command": "-editor.action.inlineEdit.jumpTo",
+    "when": "inlineEditVisible && !cursorAtInlineEdit && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+s",
+    "command": "laravel-pint.format"
+  },
 ]

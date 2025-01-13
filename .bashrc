@@ -29,19 +29,26 @@ alias phpstan='docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan analyse -l 6
 alias psysh='docker run -v $(pwd):/app --rm -it ricc/psysh'
 alias minecraft='/home/markus/Minecraft/Minecraft &'
 alias clip="xclip -selection c"
-alias killwine="ps aux | grep '\.exe' | tr -s ' ' | cut -d ' ' -f 2 | xargs kill &> /dev/null"
-alias minecraft="/home/markus/Minecraft/Minecraft &"
 alias bashrc="$EDITOR ~/.bashrc && source ~/.bashrc"
-alias codecept="php vendor/codeception/codeception/codecept"
 alias governor="cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
 alias gbg="git bisect good"
 alias gbb="git bisect bad"
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+
+#alias composer="php -d memory_limit=-1 /usr/local/bin/composer"
+alias governor="cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+alias powersave="echo powersave | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+alias performance="echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+
 alias fixalt="setxkbmap -option \"nbsp:none\" && xmodmap -e \"keycode 64 = Alt_L\""
 alias brownnoise="play -c 2 --null synth brownnoise reverb bass 6 treble -3"
 alias redshiftgui="(python ~/redshift-gui/redshift-gui.py &)"
+# alias fixpermissions="sudo chown markus-in-docker:docker-nginx . -R && sudo chown markus:markus .git .idea node_modules assets -R"
+alias artisan="app php artisan"
+alias tinker="artisan tinker"
+
 alias chattr='chattr -V'
 alias chmod='chmod -v'
 alias chown='chown -v'
@@ -59,11 +66,29 @@ alias rm='rm -Iv'
 alias rmdir='rmdir -v'
 alias rsync='rsync --progress -v'
 alias umount='umount -v'
+#alias rg="rg --hyperlink-format vscode"
 alias clrg='clear && rg -i'
+alias xclip='xclip -selection clipboard'
+alias rg="rg --color always"
+alias less="less -R"
+
+alias wip='git add . && git commit -m WIP'
+alias unwip='git log | head  | grep WIP && git reset --soft HEAD~1 && git restore --staged . && git status'
 
 source ~/.secret-alias
 #https://superuser.com/a/382601/521689
 alias sudo='sudo '
+
+######## Kryper til korset... Git snarveier...... ######
+alias gbg="git bisect good"
+alias gbb="git bisect bad"
+
+alias grbc='git rebase --continue'
+alias gs='git status'
+alias glog='git log'
+alias gpr='git pull --rebase'
+
+
 
 # Improve history
 # shopt -s histappend
@@ -91,6 +116,24 @@ function cacheclear() {
     done
 }
 
+function cache() {
+  if [ $# -eq 0 ]; then
+    docker-compose exec cache redis-cli
+  elif [ $1 == "restart" ]; then
+    docker-compose restart cache
+  else
+    docker-compose exec cache $@
+  fi
+}
+
+function app() {
+  if [ $1 == "restart" ]; then
+    docker-compose restart backend
+  else
+    docker exec -it backend $@
+  fi
+}
+
 function console() {
     web bin/console --no-debug $@
 }
@@ -112,9 +155,9 @@ function wt () {
 	while inotifywait -e close_write $1; do $2 $3 $4 $5 $6; printf "\n-----------------------\n"; done
 }
 
-function rg() {
-  /usr/bin/rg -p "$@" | ~/bin/link_to_file.sh
-}
+#function rg() {
+#  /usr/bin/rg -p "$@" | ~/bin/link_to_file.sh
+#}
 
 function fixtures() {
     console doctrine:database:drop --force $1

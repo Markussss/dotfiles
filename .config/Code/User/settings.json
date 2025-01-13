@@ -1,5 +1,6 @@
 {
-    "editor.fontFamily": "Fira Code",
+    "editor.fontFamily": "Fira Code, Comic Sans MS, Tahoma, Consolas",
+    "editor.fontLigatures": true,
     "editor.fontSize": 18,
     "editor.accessibilitySupport": "off",
     "editor.autoClosingBrackets": "always",
@@ -10,10 +11,10 @@
     "merge-conflict.codeLens.enabled": true,
     "merge-conflict.decorators.enabled": true,
     "editor.rulers": [
-        100
+        120
     ],
     "editor.copyWithSyntaxHighlighting": false,
-    "editor.lineHeight": 26,
+    "editor.lineHeight": 28,
     "editor.renderLineHighlight": "all",
     "editor.selectionClipboard": false,
     "editor.showFoldingControls": "always",
@@ -22,7 +23,6 @@
     "editor.cursorSurroundingLines": 5,
     "editor.cursorStyle": "line-thin",
     "editor.formatOnPaste": false,
-    "editor.formatOnSave": false,
     "editor.minimap.enabled": false,
     "editor.acceptSuggestionOnCommitCharacter": false,
     "editor.quickSuggestions": {
@@ -47,7 +47,7 @@
     "workbench.settings.enableNaturalLanguageSearch": false,
     "zenMode.fullScreen": false,
     "window.enableMenuBarMnemonics": false,
-    "window.menuBarVisibility": "toggle",
+    "window.menuBarVisibility": "compact",
     "window.titleBarStyle": "custom",
     "explorer.incrementalNaming": "smart",
     "explorer.openEditors.visible": 9001,
@@ -63,7 +63,7 @@
     "terminal.explorerKind": "external",
     "terminal.external.linuxExec": "gnome-terminal",
     "problems.showCurrentInStatus": true,
-    "comments.openPanel": "neverOpen",
+    "comments.openView": "never",
     "update.mode": "manual",
     "telemetry.telemetryLevel": "off",
     "telemetry.enableTelemetry": false, // deprecated in favor of "telemetry.telemetryLevel": "off", but let's keep them turned to false, just in case they decide to do a switcheroo
@@ -72,24 +72,26 @@
     "php.validate.enable": false,
     "editor.wordSeparators": "`~!@#$%^&*()_-=+[{]}\\\\|;:'\\\",.<>/?",
     "workbench.colorCustomizations": {
-        // "editor.background": "#fff2ff"
+        "editor.background": "#fffaff"
     },
-    "php-docblocker.returnGap": true,
-    "php-docblocker.qualifyClassNames": true,
     "files.associations": {
-        "*.php":"php"
+        "*.blade.php": "blade",
+        "*.php": "php",
     },
     "eslint.validate": [
         "javascript",
         "javascriptreact",
         "vue"
-      ],
-    "vetur.validation.template": false,
-    "vetur.experimental.templateInterpolationService": true,
-    "javascript.implicitProjectConfig.checkJs": false,
-    "workbench.colorTheme": "Kary Pro Colors － Light",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
+    ],
+    "js/ts.implicitProjectConfig.checkJs": false,
+    "namespaceResolver.autoSort": false,
+    "namespaceResolver.sortOnSave": false,
+    "namespaceResolver.sortAlphabetically": true,
+    "workbench.editor.decorations.badges": false,
+    "workbench.editor.decorations.colors": false,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
     },
     "[php]": {
         "gitlens.codeLens.scopes": [
@@ -116,19 +118,21 @@
     "diffEditor.ignoreTrimWhitespace": false,
     "php.executablePath": "/usr/bin/php",
     "codestream.serverUrl": "https://api.codestream.com",
-    "vetur.experimental.templateInterpolationService": true,
-    "vetur.format.defaultFormatter.css": "none",
-    "vetur.format.defaultFormatter.js": "prettier-eslint",
-    "vetur.format.defaultFormatter.less": "none",
-    "vetur.format.defaultFormatter.postcss": "none",
-    "vetur.format.defaultFormatter.pug": "none",
-    "vetur.format.defaultFormatter.sass": "none",
-    "vetur.format.defaultFormatter.scss": "none",
-    "vetur.format.defaultFormatter.stylus": "none",
-    "vetur.format.defaultFormatter.ts": "none",
-    "vetur.underline.refValue": false,
-    "vetur.validation.style": false,
-    "vetur.validation.templateProps": true,
+    // "vetur.experimental.templateInterpolationService": true,
+    // "vetur.format.defaultFormatter.css": "none",
+    // "vetur.format.defaultFormatter.js": "prettier-eslint",
+    // "vetur.format.defaultFormatter.less": "none",
+    // "vetur.format.defaultFormatter.postcss": "none",
+    // "vetur.format.defaultFormatter.pug": "none",
+    // "vetur.format.defaultFormatter.sass": "none",
+    // "vetur.format.defaultFormatter.scss": "none",
+    // "vetur.format.defaultFormatter.stylus": "none",
+    // "vetur.format.defaultFormatter.ts": "none",
+    // "vetur.underline.refValue": false,
+    // "vetur.validation.style": false,
+    // "vetur.validation.templateProps": true,
+    // "volar.autoCompleteRefs": true,
+    // "volar.codeLens.scriptSetupTools": true,
     "editor.inlineSuggest.enabled": true,
     "git.mergeEditor": false,
     "github.copilot.enable": {
@@ -137,7 +141,6 @@
         "plaintext": false,
         "markdown": false
     },
-
     "editor.tokenColorCustomizations": {
         "[Kary Pro Colors － Light]": {
             "comments": "#d6add6",
@@ -149,21 +152,28 @@
             "variables": "#b9427b"
         }
     },
-    "volar.autoCompleteRefs": true,
-    "volar.codeLens.scriptSetupTools": true,
     "emmet.showExpandedAbbreviation": "never",
     "workbench.colorTheme": "Kary Pro Colors － Light",
-    "emmet.excludeLanguages": [
-        "markdown",
-        "php"
-    ],
-    "editor.unicodeHighlight.nonBasicASCII": false,
-    "editor.inlineSuggest.enabled": true,
-    "npm.keybindingsChangedWarningShown": true,
-    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "markdown.preview.lineHeight": 1.8,
+    "markdown.preview.fontSize": 16,
+    "emmet.triggerExpansionOnTab": true,
     "blade.format.enable": true,
-    "[blade]": {
-        "editor.autoClosingBrackets": "always",
-        "editor.defaultFormatter": "onecentlin.laravel-blade",
+    "database-client.telemetry.usesOnlineServices": false,
+    "laravel-pint.enable": true,
+    "git.openRepositoryInParentFolders": "never",
+    "security.promptForLocalFileProtocolHandling": false,
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "html",
+        "vue": "html",
+        "vue-html": "html",
+        "html": "html",
+        "javascript": "javascript",
+        "css": "css"
+    },
+    "tailwindCSS.experimental.configFile": "./tailwind.config.js",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "explorer.confirmDelete": false,
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
     },
 }
