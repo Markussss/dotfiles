@@ -240,3 +240,24 @@ source "$HOME/.cargo/env"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+thatwasgit() {
+    last_command=$(fc -ln -1) # Get the last executed command
+    misspelling=$(echo "$last_command" | awk '{print $1}') # Extract the misspelled command
+
+    if [[ "$misspelling" == "git" ]]; then
+        echo "The last command was 'git', nothing to alias."
+        return
+    fi
+
+    # Add the alias to .bashrc
+    echo "alias $misspelling=\"git\"" >> ~/.bashrc
+
+    # Make the alias available immediately
+    alias "$misspelling=git"
+
+    echo "Ok! alias $misspelling=\"git\" added to .bashrc!"
+}
+
+
+alias gut="git"
