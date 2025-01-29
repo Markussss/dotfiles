@@ -241,6 +241,27 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# this is a function that takes one argument, a path to a file or directory, and passes it to the
+# phpstan command, and then redirecting the output to a directory in ~/reports/ with the date,
+# time and the parameter passed to the function as the name of the report file
+report() {
+  file_or_dir=$1
+  # replace slashes with underscores
+  file_or_dir=${file_or_dir//\//_}
+
+  # create the directory if it doesn't exist
+  mkdir -p ~/reports
+
+  # set the filename so we can reuse it later
+  filename=$(date +%Y-%m-%d_%H-%M-%S)_$file_or_dir.txt
+
+  # run the phpstan command and redirect the output to a file in the reports directory
+  phpstan $1 > ~/reports/$filename
+
+  # open the report in less
+  less ~/reports/$filename
+}
+
 thatwasgit() {
     last_command=$(fc -ln -1) # Get the last executed command
     misspelling=$(echo "$last_command" | awk '{print $1}') # Extract the misspelled command
@@ -257,7 +278,21 @@ thatwasgit() {
     alias "$misspelling=git"
 
     echo "Ok! alias $misspelling=\"git\" added to .bashrc!"
+
+    # Run the command with the alias
+    eval "$last_command"
 }
 
 
 alias gut="git"
+alias gin="git"
+alias gi="git"
+alias giot="git"
+alias gtis="git"
+alias sigt="git"
+alias gitg="git"
+alias gfit="git"
+alias giut="git"
+alias sgit="git"
+alias goit="git"
+alias gjt="git"
